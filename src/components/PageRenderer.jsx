@@ -50,7 +50,7 @@ function SectionBlock({ section }) {
 
     case 'text_block':
       return (
-        <section className="max-w-3xl mx-auto px-6 py-16">
+        <section className="max-w-3xl mx-auto px-6 py-8">
           {data.heading && (
             <h2 className="font-serif text-3xl text-brand-ink mb-6">{data.heading}</h2>
           )}
@@ -65,15 +65,15 @@ function SectionBlock({ section }) {
 
     case 'image_text':
       return (
-        <section className="max-w-6xl mx-auto px-6 py-16">
-          <div className={`flex flex-col lg:flex-row gap-12 items-center ${data.image_right ? 'lg:flex-row-reverse' : ''}`}>
+        <section className="max-w-6xl mx-auto px-6 py-8">
+          <div className={`flex flex-col lg:flex-row gap-12 items-start ${data.image_right ? 'lg:flex-row-reverse' : ''}`}>
             {data.image && (
-              <div className="lg:w-1/2">
+              <div className="w-full lg:w-1/2 flex justify-center items-center">
                 <img
                   src={data.image}
                   alt={data.heading || ''}
-                  className="w-full rounded-lg border border-brand-gold/20 shadow-premium"
-                  style={data.image_height ? { height: `${data.image_height}px`, objectFit: 'cover' } : undefined}
+                  className={`rounded-lg border border-brand-gold/20 shadow-premium${data.image_height ? ' w-auto max-w-full' : ' w-full'}`}
+                  style={data.image_height ? { height: `${data.image_height}px` } : undefined}
                 />
               </div>
             )}
@@ -97,7 +97,7 @@ function SectionBlock({ section }) {
 
     case 'call_to_action':
       return (
-        <section className="py-16">
+        <section className="py-8">
           <div className="max-w-4xl mx-auto px-6">
             <div className="pink-panel p-10 text-center">
               {data.label && <p className="label-gold mb-3">✦ {data.label} ✦</p>}
@@ -131,7 +131,7 @@ function SectionBlock({ section }) {
         .map((n) => ({ icon: data[`item_${n}_icon`], title: data[`item_${n}_title`], desc: data[`item_${n}_desc`] }))
         .filter((item) => item.title)
       return (
-        <section className="py-16 max-w-6xl mx-auto px-6">
+        <section className="py-8 max-w-6xl mx-auto px-6">
           {(data.label || data.heading) && (
             <div className={`mb-14 ${items.length === 4 ? 'text-center' : ''}`}>
               {data.label && <p className="label-gold mb-3">✦ {data.label} ✦</p>}

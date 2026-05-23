@@ -93,7 +93,7 @@ export default function AboutPage() {
   return (
     <div className="pt-20">
       {/* Page header — always fixed */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-14 text-center">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-4 text-center">
         <p className="label-gold mb-4">✦ Our Story ✦</p>
         <h1 className="font-serif text-5xl md:text-6xl text-brand-ink font-light">About Us</h1>
         <div className="gold-divider w-24 mx-auto mt-6" />

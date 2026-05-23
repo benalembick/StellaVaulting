@@ -142,7 +142,7 @@ export default function AdminTeamPage() {
                 {m.photo ? <img src={m.photo} alt={m.name} className="w-full h-full object-cover" /> : <span className="text-brand-gold font-serif">{m.name[0]}</span>}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-brand-ink font-medium truncate">{m.name}</p>
+                <button onClick={() => openEdit(m)} className="text-brand-ink font-medium truncate hover:text-brand-gold transition-colors text-left w-full block">{m.name}</button>
                 {m.role && <p className="text-brand-pink text-xs mt-0.5">{m.role}</p>}
                 <p className="text-brand-ink/40 text-xs mt-0.5 truncate">{m.bio}</p>
               </div>

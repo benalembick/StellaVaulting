@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { supabase } from '../lib/supabase'
+import EditableSection from '../components/EditableSection'
 
 export default function PostPage() {
   const { slug } = useParams()
@@ -39,6 +40,7 @@ export default function PostPage() {
   }
 
   return (
+    <EditableSection adminPath="/admin/posts" label="Post">
     <div className="pt-20">
       {post.image && (
         <div className="relative h-72 md:h-96 overflow-hidden">
@@ -57,5 +59,6 @@ export default function PostPage() {
         )}
       </div>
     </div>
+    </EditableSection>
   )
 }

@@ -15,10 +15,10 @@ export function AuthProvider({ children }) {
       else setLoading(false)
     })
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null)
       if (session?.user) {
-        await checkAdmin(session.user.id)
+        checkAdmin(session.user.id)
       } else {
         setIsAdmin(false)
         setLoading(false)

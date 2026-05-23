@@ -123,7 +123,7 @@ export default function AdminEventsPage() {
             <div key={e.id} className="admin-card flex items-center gap-4">
               {e.image && <img src={e.image} alt={e.name} className="w-16 h-16 object-cover rounded flex-shrink-0" />}
               <div className="flex-1 min-w-0">
-                <p className="text-brand-ink font-medium truncate">{e.name}</p>
+                <button onClick={() => openEdit(e)} className="text-brand-ink font-medium truncate hover:text-brand-gold transition-colors text-left w-full block">{e.name}</button>
                 <div className="flex gap-3 text-xs text-brand-ink/40 mt-0.5">
                   {e.event_date && <span>{format(new Date(e.event_date), 'd MMM yyyy')}</span>}
                   {e.location && <span>· {e.location}</span>}

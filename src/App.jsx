@@ -1,12 +1,14 @@
 import { BrowserRouter, Routes, Route, ScrollRestoration } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
-import { AuthProvider } from './context/AuthContext'
+import { AuthProvider, useAuth } from './context/AuthContext'
 import { CartProvider } from './context/CartContext'
+import { EditModeProvider } from './context/EditModeContext'
 
 // Layout
 import Header from './components/Header'
 import Footer from './components/Footer'
 import CartDrawer from './components/CartDrawer'
+import AdminBar from './components/AdminBar'
 import ProtectedRoute from './components/ProtectedRoute'
 
 // Public pages
@@ -37,13 +39,15 @@ import AdminSponsorshipPage from './pages/admin/AdminSponsorshipPage'
 import AdminPagesPage from './pages/admin/AdminPagesPage'
 
 function PublicLayout({ children }) {
+  const { isAdmin } = useAuth()
   return (
-    <>
+    <EditModeProvider>
+      <AdminBar />
       <Header />
-      <main className="pt-[56px]">{children}</main>
+      <main className={isAdmin ? 'pt-[96px]' : 'pt-[56px]'}>{children}</main>
       <Footer />
       <CartDrawer />
-    </>
+    </EditModeProvider>
   )
 }
 

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ExternalLink } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import SectionHeading from '../components/SectionHeading'
+import EditableSection from '../components/EditableSection'
 
 const TIER_COLORS = {
   platinum: 'border-brand-ink/15 bg-brand-surface-alt',
@@ -47,6 +48,7 @@ export default function SponsorshipPage() {
         <div className="gold-divider w-24 mx-auto mt-6" />
       </div>
 
+      <EditableSection adminPath="/admin/sponsorship" label="Sponsorship">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         {/* Featured callout */}
         <div className="card-premium p-8 md:p-12 mb-20 bg-brand-surface-alt border-brand-gold/20">
@@ -149,6 +151,7 @@ export default function SponsorshipPage() {
           </a>
         </div>
       </div>
+      </EditableSection>
     </div>
   )
 }

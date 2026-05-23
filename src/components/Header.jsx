@@ -24,7 +24,7 @@ export default function Header() {
   const location = useLocation()
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20)
+    const handler = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
@@ -33,12 +33,16 @@ export default function Header() {
     setMenuOpen(false)
   }, [location])
 
+  const adminBarVisible = isAdmin && !location.pathname.startsWith('/admin')
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
+        adminBarVisible ? 'top-10' : 'top-0'
+      } ${
         scrolled
-          ? 'bg-white/98 backdrop-blur-sm border-b border-brand-gold/[0.2] shadow-nav'
-          : 'bg-white/80 backdrop-blur-sm'
+          ? 'bg-white/[0.82] backdrop-blur-md backdrop-brightness-110 border-b border-brand-gold/[0.2] shadow-nav'
+          : 'bg-white/[0.35] backdrop-blur-lg backdrop-brightness-125'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

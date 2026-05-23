@@ -4,6 +4,7 @@ import { ArrowRight, Heart } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import CountdownTimer from '../components/CountdownTimer'
 import SectionHeading from '../components/SectionHeading'
+import EditableSection from '../components/EditableSection'
 
 export default function HomePage() {
   const [pinnedPosts, setPinnedPosts] = useState([])
@@ -61,39 +62,41 @@ export default function HomePage() {
       </section>
 
       {/* Countdown + Fundraising CTA */}
-      <section className="py-28">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            {nextEvent ? (
-              <CountdownTimer
-                eventDate={nextEvent.event_date}
-                eventName={nextEvent.name}
-                fundraisingTarget={nextEvent.fundraising_target}
-              />
-            ) : (
-              <div className="card-premium p-8 text-center">
-                <p className="font-serif text-2xl text-brand-ink">Upcoming Events</p>
-                <p className="text-brand-ink-soft mt-2 text-sm">Check back soon for our next event</p>
-                <Link to="/events" className="btn-outline-gold mt-6 inline-flex">View Events</Link>
-              </div>
-            )}
+      <EditableSection adminPath="/admin/events" label="Events">
+        <section className="py-28">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-10 items-center">
+              {nextEvent ? (
+                <CountdownTimer
+                  eventDate={nextEvent.event_date}
+                  eventName={nextEvent.name}
+                  fundraisingTarget={nextEvent.fundraising_target}
+                />
+              ) : (
+                <div className="card-premium p-8 text-center">
+                  <p className="font-serif text-2xl text-brand-ink">Upcoming Events</p>
+                  <p className="text-brand-ink-soft mt-2 text-sm">Check back soon for our next event</p>
+                  <Link to="/events" className="btn-outline-gold mt-6 inline-flex">View Events</Link>
+                </div>
+              )}
 
-            <div className="pink-panel p-10 text-center lg:text-left">
-              <p className="label-gold mb-4">✦ Support Us ✦</p>
-              <h2 className="font-serif text-3xl text-brand-ink leading-tight">
-                Help us fundraise for our next event
-              </h2>
-              <p className="text-brand-ink-soft mt-4 leading-relaxed">
-                Every contribution — big or small — brings our athletes one step closer to representing Australia on the world stage.
-                Join our community of supporters and make a real difference.
-              </p>
-              <Link to="/fundraising" className="btn-gold mt-8 inline-flex">
-                Donate Now <Heart size={16} />
-              </Link>
+              <div className="pink-panel p-10 text-center lg:text-left">
+                <p className="label-gold mb-4">✦ Support Us ✦</p>
+                <h2 className="font-serif text-3xl text-brand-ink leading-tight">
+                  Help us fundraise for our next event
+                </h2>
+                <p className="text-brand-ink-soft mt-4 leading-relaxed">
+                  Every contribution — big or small — brings our athletes one step closer to representing Australia on the world stage.
+                  Join our community of supporters and make a real difference.
+                </p>
+                <Link to="/fundraising" className="btn-gold mt-8 inline-flex">
+                  Donate Now <Heart size={16} />
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </EditableSection>
 
       {/* Gold divider */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -102,22 +105,24 @@ export default function HomePage() {
 
       {/* Pinned Posts */}
       {pinnedPosts.length > 0 && (
-        <section className="py-28 bg-brand-surface-alt">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <SectionHeading
-              label="Latest News"
-              title="From the Academy"
-              subtitle="Updates & announcements"
-              center
-              className="mb-16"
-            />
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {pinnedPosts.map((post) => (
-                <PinnedPostCard key={post.id} post={post} />
-              ))}
+        <EditableSection adminPath="/admin/posts" label="Pinned Posts">
+          <section className="py-28 bg-brand-surface-alt">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <SectionHeading
+                label="Latest News"
+                title="From the Academy"
+                subtitle="Updates & announcements"
+                center
+                className="mb-16"
+              />
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                {pinnedPosts.map((post) => (
+                  <PinnedPostCard key={post.id} post={post} />
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </EditableSection>
       )}
 
       {/* Three pillars */}
@@ -158,21 +163,23 @@ export default function HomePage() {
       </section>
 
       {/* CTA Strip */}
-      <section className="py-24 bg-brand-surface-warm border-y border-brand-gold/20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="label-gold mb-4">✦ Sponsor the Academy ✦</p>
-          <h2 className="font-serif text-3xl md:text-4xl text-brand-ink">
-            Partner with Stella Vaulting Academy
-          </h2>
-          <p className="text-brand-ink-soft mt-4 max-w-2xl mx-auto">
-            We are looking for sponsors to help build an indoor arena and support our IVC Rising Star athlete Imelda Alembick on her international journey.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-            <Link to="/sponsorship" className="btn-gold">Explore Sponsorship</Link>
-            <Link to="/team" className="btn-outline-gold">Meet Our Team</Link>
+      <EditableSection adminPath="/admin/sponsorship" label="Sponsorship">
+        <section className="py-24 bg-brand-surface-warm border-y border-brand-gold/20">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p className="label-gold mb-4">✦ Sponsor the Academy ✦</p>
+            <h2 className="font-serif text-3xl md:text-4xl text-brand-ink">
+              Partner with Stella Vaulting Academy
+            </h2>
+            <p className="text-brand-ink-soft mt-4 max-w-2xl mx-auto">
+              We are looking for sponsors to help build an indoor arena and support our IVC Rising Star athlete Imelda Alembick on her international journey.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
+              <Link to="/sponsorship" className="btn-gold">Explore Sponsorship</Link>
+              <Link to="/team" className="btn-outline-gold">Meet Our Team</Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </EditableSection>
     </div>
   )
 }

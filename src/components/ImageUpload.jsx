@@ -64,10 +64,10 @@ export default function ImageUpload({
               <p className="text-xs">Uploading...</p>
             </div>
           ) : (
-            <div className="flex flex-col items-center gap-2 text-brand-white/40">
+            <div className="flex flex-col items-center gap-2 text-brand-ink/40">
               <Upload size={24} />
               <p className="text-xs">{label}</p>
-              <p className="text-[10px] text-brand-white/30">Drag & drop or click to browse</p>
+              <p className="text-[10px] text-brand-ink/30">Drag & drop or click to browse</p>
             </div>
           )}
         </div>

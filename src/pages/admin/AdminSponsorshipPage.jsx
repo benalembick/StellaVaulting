@@ -119,8 +119,8 @@ export default function AdminSponsorshipPage() {
               {s.image && <img src={s.image} alt={s.title} className="w-14 h-14 object-cover rounded flex-shrink-0" />}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <p className="text-brand-ink font-medium truncate">{s.title}</p>
-                  {s.tier && <span className="text-[10px] bg-brand-gold/10 text-brand-gold px-1.5 py-0.5 rounded capitalize">{s.tier}</span>}
+                  <button onClick={() => openEdit(s)} className="text-brand-ink font-medium truncate hover:text-brand-gold transition-colors text-left">{s.title}</button>
+                  {s.tier && <span className="text-[10px] bg-brand-gold/10 text-brand-gold px-1.5 py-0.5 rounded capitalize flex-shrink-0">{s.tier}</span>}
                 </div>
                 {s.description && <p className="text-brand-ink/40 text-xs truncate mt-0.5">{s.description}</p>}
                 {s.amount && <p className="text-brand-gold text-xs mt-0.5">${s.amount.toLocaleString()}</p>}

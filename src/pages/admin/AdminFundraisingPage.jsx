@@ -118,7 +118,7 @@ export default function AdminFundraisingPage() {
               </div>
               {p.image && <img src={p.image} alt={p.name} className="w-10 h-10 object-cover rounded flex-shrink-0" />}
               <div className="flex-1 min-w-0">
-                <p className="text-brand-ink font-medium truncate">{p.name}</p>
+                <button onClick={() => openEdit(p)} className="text-brand-ink font-medium truncate hover:text-brand-gold transition-colors text-left w-full block">{p.name}</button>
                 {p.description && <p className="text-brand-ink/40 text-xs mt-0.5 truncate">{p.description}</p>}
               </div>
               <span className="text-brand-gold font-semibold text-sm flex-shrink-0">${p.price.toFixed(2)}</span>

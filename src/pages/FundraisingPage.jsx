@@ -3,6 +3,7 @@ import { ShoppingCart, Heart, Plus, Check } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { useCart } from '../context/CartContext'
 import SectionHeading from '../components/SectionHeading'
+import EditableSection from '../components/EditableSection'
 import toast from 'react-hot-toast'
 
 export default function FundraisingPage() {
@@ -52,6 +53,7 @@ export default function FundraisingPage() {
         <div className="gold-divider w-24 mx-auto mt-6" />
       </div>
 
+      <EditableSection adminPath="/admin/fundraising" label="Fundraising">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         {/* Products grid */}
         {loading ? (
@@ -117,6 +119,7 @@ export default function FundraisingPage() {
           </div>
         </div>
       </div>
+      </EditableSection>
     </div>
   )
 }

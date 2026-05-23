@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Plus, Edit2, Eye, EyeOff, ChevronDown, ChevronUp, Trash2, GripVertical, Loader2 } from 'lucide-react'
+import { useSearchParams } from 'react-router-dom'
+import { Plus, Edit2, Eye, EyeOff, ChevronDown, ChevronUp, Trash2, GripVertical, Loader2, ExternalLink } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
+import ImageUpload from '../../components/ImageUpload'
 import toast from 'react-hot-toast'
 
 const SECTION_TYPES = [
@@ -8,6 +10,7 @@ const SECTION_TYPES = [
   { value: 'text_block', label: 'Text Block' },
   { value: 'image_text', label: 'Image + Text' },
   { value: 'call_to_action', label: 'Call to Action' },
+  { value: 'features', label: 'Features / Values Grid' },
   { value: 'event_countdown', label: 'Event Countdown' },
 ]
 
@@ -18,7 +21,12 @@ function slugify(str) {
   return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 }
 
+function getPageUrl(slug) {
+  return window.location.origin + (slug === 'home' ? '/' : `/${slug}`)
+}
+
 export default function AdminPagesPage() {
+  const [searchParams] = useSearchParams()
   const [pages, setPages] = useState([])
   const [activePage, setActivePage] = useState(null)
   const [sections, setSections] = useState([])
@@ -33,17 +41,41 @@ export default function AdminPagesPage() {
 
   async function loadPages() {
     const { data } = await supabase.from('pages').select('*').order('title')
-    setPages(data || [])
+    const pageList = data || []
+    setPages(pageList)
     setLoading(false)
+    return pageList
   }
 
   async function loadSections(pageId) {
     const { data } = await supabase.from('page_sections').select('*').eq('page_id', pageId).order('order_index')
-    setSections(data || [])
+    const result = data || []
+    setSections(result)
+    return result
   }
 
-  useEffect(() => { loadPages() }, [])
-  useEffect(() => { if (activePage) loadSections(activePage.id) }, [activePage])
+  useEffect(() => {
+    loadPages().then((pageList) => {
+      const slugParam = searchParams.get('slug')
+      if (slugParam) {
+        const match = pageList.find((p) => p.slug === slugParam)
+        if (match) setActivePage(match)
+      }
+    })
+  }, [])
+  useEffect(() => {
+    if (!activePage) return
+    const sectionParam = searchParams.get('section')
+    loadSections(activePage.id).then((loaded) => {
+      if (sectionParam) {
+        const match = loaded.find((s) => s.id === sectionParam)
+        if (match) {
+          setEditingSection(match.id)
+          setSectionContent(match.content || {})
+        }
+      }
+    })
+  }, [activePage])
 
   async function savePage() {
     if (!pageForm.title) { toast.error('Title required'); return }
@@ -171,6 +203,7 @@ export default function AdminPagesPage() {
                 </button>
                 <button onClick={() => togglePage(p)} className={`p-1 ${p.published ? 'text-green-400' : 'text-brand-ink/20'}`}>{p.published ? <Eye size={12} /> : <EyeOff size={12} />}</button>
                 <button onClick={() => { setEditingPage(p.id); setPageForm({ slug: p.slug, title: p.title, meta_description: p.meta_description || '', published: p.published }) }} className="p-1 text-brand-ink/20 hover:text-brand-gold"><Edit2 size={12} /></button>
+                <a href={getPageUrl(p.slug)} target="_blank" rel="noopener noreferrer" className="p-1 text-brand-ink/20 hover:text-brand-gold" title="View on site"><ExternalLink size={12} /></a>
               </div>
             ))}
             {loading && <div className="py-4 text-center"><div className="w-4 h-4 border-2 border-brand-gold border-t-transparent rounded-full animate-spin mx-auto" /></div>}
@@ -185,9 +218,20 @@ export default function AdminPagesPage() {
                 <h3 className="text-xs tracking-widest uppercase text-brand-ink/40">
                   Sections — {activePage.title}
                 </h3>
-                <button onClick={() => setAddingSection(true)} className="text-xs text-brand-gold hover:text-brand-gold-light flex items-center gap-1">
-                  <Plus size={12} /> Add Section
-                </button>
+                <div className="flex items-center gap-3">
+                  <a
+                    href={getPageUrl(activePage.slug)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-brand-ink/40 hover:text-brand-gold flex items-center gap-1 transition-colors"
+                    title="View this page on the site"
+                  >
+                    <ExternalLink size={11} /> View Page
+                  </a>
+                  <button onClick={() => setAddingSection(true)} className="text-xs text-brand-gold hover:text-brand-gold-light flex items-center gap-1">
+                    <Plus size={12} /> Add Section
+                  </button>
+                </div>
               </div>
 
               {addingSection && (
@@ -210,11 +254,25 @@ export default function AdminPagesPage() {
                         <button onClick={() => moveSection(s.id, -1)} disabled={idx === 0} className="text-brand-ink/20 hover:text-brand-gold disabled:opacity-10"><ChevronUp size={14} /></button>
                         <button onClick={() => moveSection(s.id, 1)} disabled={idx === sections.length - 1} className="text-brand-ink/20 hover:text-brand-gold disabled:opacity-10"><ChevronDown size={14} /></button>
                       </div>
-                      <div className="flex-1">
-                        <span className="text-xs bg-brand-gold/10 text-brand-gold px-2 py-0.5 rounded capitalize">
+                      <div className="flex-1 min-w-0">
+                        <button
+                          onClick={() => {
+                            if (editingSection === s.id) {
+                              setEditingSection(null)
+                            } else {
+                              setEditingSection(s.id)
+                              setSectionContent(s.content || {})
+                            }
+                          }}
+                          className="text-xs bg-brand-gold/10 hover:bg-brand-gold/20 text-brand-gold px-2 py-0.5 rounded capitalize transition-colors cursor-pointer"
+                        >
                           {SECTION_TYPES.find((t) => t.value === s.section_type)?.label || s.section_type}
-                        </span>
-                        {s.content?.title && <span className="text-xs text-brand-ink/50 ml-2">— {s.content.title}</span>}
+                        </button>
+                        {(s.content?.title || s.content?.heading) && (
+                          <span className="text-xs text-brand-ink/50 ml-2 truncate">
+                            — {s.content.title || s.content.heading}
+                          </span>
+                        )}
                       </div>
                       <div className="flex items-center gap-2">
                         <button onClick={() => toggleSection(s)} className={s.published ? 'text-green-400' : 'text-brand-ink/30'}>{s.published ? <Eye size={13} /> : <EyeOff size={13} />}</button>
@@ -236,8 +294,17 @@ export default function AdminPagesPage() {
                   </div>
                 ))}
                 {sections.length === 0 && (
-                  <div className="text-center py-8 text-brand-ink/30 border-2 border-dashed border-brand-gold/10 rounded-lg">
-                    <p className="text-sm">No sections yet. Add one above.</p>
+                  <div className="py-10 px-6 border-2 border-dashed border-brand-gold/20 rounded-lg text-center space-y-3">
+                    <p className="text-sm font-medium text-brand-ink/60">No sections yet for <span className="text-brand-gold">{activePage.title}</span></p>
+                    <p className="text-xs text-brand-ink/40 max-w-sm mx-auto leading-relaxed">
+                      This page currently shows its built-in default content. Add sections here to replace it with your own custom content — sections are displayed in order on the public page.
+                    </p>
+                    <button
+                      onClick={() => setAddingSection(true)}
+                      className="btn-gold text-xs py-2 px-4 inline-flex items-center gap-1.5 mt-2"
+                    >
+                      <Plus size={12} /> Add First Section
+                    </button>
                   </div>
                 )}
               </div>
@@ -264,6 +331,14 @@ function SectionContentEditor({ type, content, onChange, onSave, onCancel, savin
             <label className="admin-label">{label}</label>
             {multiline ? (
               <textarea className="admin-textarea" value={content[key] || ''} onChange={(e) => onChange({ ...content, [key]: e.target.value })} rows={3} />
+            ) : fType === 'image' ? (
+              <ImageUpload
+                bucket="images"
+                value={content[key] || null}
+                onChange={(url) => onChange({ ...content, [key]: url || '' })}
+                label={`Upload ${label}`}
+                className="mt-1"
+              />
             ) : fType === 'checkbox' ? (
               <div className="flex items-center gap-2 mt-1">
                 <input type="checkbox" checked={!!content[key]} onChange={(e) => onChange({ ...content, [key]: e.target.checked })} className="w-4 h-4 accent-brand-gold" />
@@ -290,7 +365,7 @@ function getSectionFields(type) {
         { key: 'label', label: 'Label (above title)' },
         { key: 'title', label: 'Main Title' },
         { key: 'subtitle', label: 'Subtitle' },
-        { key: 'image', label: 'Background Image URL' },
+        { key: 'image', label: 'Background Image', type: 'image' },
         { key: 'button_text', label: 'Button Text' },
         { key: 'button_url', label: 'Button URL' },
       ]
@@ -304,7 +379,7 @@ function getSectionFields(type) {
         { key: 'label', label: 'Label' },
         { key: 'heading', label: 'Heading' },
         { key: 'body', label: 'Body', multiline: true },
-        { key: 'image', label: 'Image URL' },
+        { key: 'image', label: 'Image', type: 'image' },
         { key: 'image_right', label: 'Image on Right?', type: 'checkbox' },
         { key: 'button_text', label: 'Button Text' },
         { key: 'button_url', label: 'Button URL' },
@@ -316,6 +391,23 @@ function getSectionFields(type) {
         { key: 'body', label: 'Body', multiline: true },
         { key: 'button_text', label: 'Button Text' },
         { key: 'button_url', label: 'Button URL' },
+      ]
+    case 'features':
+      return [
+        { key: 'label', label: 'Label (above heading)' },
+        { key: 'heading', label: 'Section Heading' },
+        { key: 'item_1_icon', label: 'Item 1 — Icon (emoji)' },
+        { key: 'item_1_title', label: 'Item 1 — Title' },
+        { key: 'item_1_desc', label: 'Item 1 — Description', multiline: true },
+        { key: 'item_2_icon', label: 'Item 2 — Icon (emoji)' },
+        { key: 'item_2_title', label: 'Item 2 — Title' },
+        { key: 'item_2_desc', label: 'Item 2 — Description', multiline: true },
+        { key: 'item_3_icon', label: 'Item 3 — Icon (emoji)' },
+        { key: 'item_3_title', label: 'Item 3 — Title' },
+        { key: 'item_3_desc', label: 'Item 3 — Description', multiline: true },
+        { key: 'item_4_icon', label: 'Item 4 — Icon (emoji)' },
+        { key: 'item_4_title', label: 'Item 4 — Title' },
+        { key: 'item_4_desc', label: 'Item 4 — Description', multiline: true },
       ]
     case 'event_countdown':
       return [

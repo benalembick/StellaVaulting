@@ -5,6 +5,7 @@ import { format } from 'date-fns'
 import { supabase } from '../lib/supabase'
 import CountdownTimer from '../components/CountdownTimer'
 import SectionHeading from '../components/SectionHeading'
+import EditableSection from '../components/EditableSection'
 
 export default function EventsPage() {
   const [events, setEvents] = useState([])
@@ -37,6 +38,7 @@ export default function EventsPage() {
         <div className="gold-divider w-24 mx-auto mt-6" />
       </div>
 
+      <EditableSection adminPath="/admin/events" label="Events">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         {loading ? (
           <div className="flex justify-center py-20">
@@ -111,6 +113,7 @@ export default function EventsPage() {
           </>
         )}
       </div>
+      </EditableSection>
     </div>
   )
 }

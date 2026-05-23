@@ -127,8 +127,8 @@ export default function AdminPostsPage() {
               {p.image && <img src={p.image} alt={p.title} className="w-14 h-14 object-cover rounded flex-shrink-0" />}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <p className="text-brand-ink font-medium truncate">{p.title}</p>
-                  {p.pinned && <span className="text-[10px] bg-brand-pink/20 text-brand-pink px-1.5 py-0.5 rounded tracking-wide">Pinned #{p.pin_order}</span>}
+                  <button onClick={() => openEdit(p)} className="text-brand-ink font-medium truncate hover:text-brand-gold transition-colors text-left">{p.title}</button>
+                  {p.pinned && <span className="text-[10px] bg-brand-pink/20 text-brand-pink px-1.5 py-0.5 rounded tracking-wide flex-shrink-0">Pinned #{p.pin_order}</span>}
                 </div>
                 {p.short_description && <p className="text-brand-ink/40 text-xs mt-0.5 truncate">{p.short_description}</p>}
               </div>

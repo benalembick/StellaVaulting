@@ -1,14 +1,17 @@
 import { Link } from 'react-router-dom'
 import CountdownTimer from './CountdownTimer'
+import EditableSection from './EditableSection'
 
-// Renders dynamic page sections from the CMS
-export default function PageRenderer({ sections = [] }) {
+export default function PageRenderer({ sections = [], pageSlug = '' }) {
+  const baseAdminPath = pageSlug ? `/admin/pages?slug=${pageSlug}` : '/admin/pages'
   return (
     <div>
       {sections
         .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
         .map((section) => (
-          <SectionBlock key={section.id} section={section} />
+          <EditableSection key={section.id} adminPath={`${baseAdminPath}&section=${section.id}`} label="Edit Section">
+            <SectionBlock section={section} />
+          </EditableSection>
         ))}
     </div>
   )
@@ -28,11 +31,11 @@ function SectionBlock({ section }) {
           {data.image && <div className="absolute inset-0 bg-hero-overlay" />}
           <div className="relative z-10 max-w-3xl mx-auto px-6 py-20">
             {data.label && <p className="label-gold mb-4">✦ {data.label} ✦</p>}
-            <h1 className="font-serif text-5xl md:text-7xl text-brand-white font-light leading-tight">
+            <h1 className={`font-serif text-5xl md:text-7xl font-light leading-tight ${data.image ? 'text-white' : 'text-brand-ink'}`}>
               {data.title}
             </h1>
             {data.subtitle && (
-              <p className="mt-6 text-lg text-brand-white/70 font-light">{data.subtitle}</p>
+              <p className={`mt-6 text-lg font-light ${data.image ? 'text-white/70' : 'text-brand-ink-soft'}`}>{data.subtitle}</p>
             )}
             {data.button_text && data.button_url && (
               <div className="mt-8">
@@ -49,11 +52,11 @@ function SectionBlock({ section }) {
       return (
         <section className="max-w-3xl mx-auto px-6 py-16">
           {data.heading && (
-            <h2 className="font-serif text-3xl text-brand-white mb-6">{data.heading}</h2>
+            <h2 className="font-serif text-3xl text-brand-ink mb-6">{data.heading}</h2>
           )}
           {data.body && (
             <div
-              className="prose-brand text-brand-white/80 leading-relaxed whitespace-pre-wrap"
+              className="text-brand-ink-soft leading-relaxed whitespace-pre-wrap"
               dangerouslySetInnerHTML={{ __html: data.body.replace(/\n/g, '<br/>') }}
             />
           )}
@@ -71,9 +74,9 @@ function SectionBlock({ section }) {
             )}
             <div className="lg:w-1/2">
               {data.label && <p className="label-gold mb-3">✦ {data.label} ✦</p>}
-              {data.heading && <h2 className="font-serif text-3xl text-brand-white mb-4">{data.heading}</h2>}
+              {data.heading && <h2 className="font-serif text-3xl text-brand-ink mb-4">{data.heading}</h2>}
               {data.body && (
-                <p className="text-brand-white/70 leading-relaxed">{data.body}</p>
+                <p className="text-brand-ink-soft leading-relaxed">{data.body}</p>
               )}
               {data.button_text && data.button_url && (
                 <div className="mt-6">
@@ -93,8 +96,8 @@ function SectionBlock({ section }) {
           <div className="max-w-4xl mx-auto px-6">
             <div className="pink-panel p-10 text-center">
               {data.label && <p className="label-gold mb-3">✦ {data.label} ✦</p>}
-              <h2 className="font-serif text-3xl text-brand-white mb-4">{data.title}</h2>
-              {data.body && <p className="text-brand-white/70 mb-6">{data.body}</p>}
+              <h2 className="font-serif text-3xl text-brand-ink mb-4">{data.title}</h2>
+              {data.body && <p className="text-brand-ink-soft mb-6">{data.body}</p>}
               {data.button_text && data.button_url && (
                 <Link to={data.button_url} className="btn-gold">
                   {data.button_text}
@@ -117,6 +120,31 @@ function SectionBlock({ section }) {
           )}
         </section>
       )
+
+    case 'features': {
+      const items = [1, 2, 3, 4]
+        .map((n) => ({ icon: data[`item_${n}_icon`], title: data[`item_${n}_title`], desc: data[`item_${n}_desc`] }))
+        .filter((item) => item.title)
+      return (
+        <section className="py-16 max-w-6xl mx-auto px-6">
+          {(data.label || data.heading) && (
+            <div className={`mb-14 ${items.length === 4 ? 'text-center' : ''}`}>
+              {data.label && <p className="label-gold mb-3">✦ {data.label} ✦</p>}
+              {data.heading && <h2 className="font-serif text-3xl text-brand-ink">{data.heading}</h2>}
+            </div>
+          )}
+          <div className={`grid gap-8 ${items.length === 4 ? 'md:grid-cols-2 lg:grid-cols-4' : items.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
+            {items.map(({ icon, title, desc }) => (
+              <div key={title} className="pink-panel p-7 text-center">
+                {icon && <div className="text-3xl mb-3">{icon}</div>}
+                <h3 className="font-serif text-lg text-brand-ink mb-2">{title}</h3>
+                {desc && <p className="text-xs text-brand-ink-soft leading-relaxed">{desc}</p>}
+              </div>
+            ))}
+          </div>
+        </section>
+      )
+    }
 
     default:
       return null

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import SectionHeading from '../components/SectionHeading'
+import EditableSection from '../components/EditableSection'
 
 const CATEGORIES = ['All', 'Training', 'Exercise', 'Event', 'Behind the Scenes']
 
@@ -42,6 +43,7 @@ export default function StellaGalleryPage() {
         <div className="gold-divider w-24 mx-auto mt-6" />
       </div>
 
+      <EditableSection adminPath="/admin/stella-gallery" label="Gallery">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         {/* Filters */}
         <div className="flex flex-wrap gap-3 mb-8">
@@ -116,6 +118,7 @@ export default function StellaGalleryPage() {
           </div>
         )}
       </div>
+      </EditableSection>
 
       {/* Lightbox */}
       {lightbox && (

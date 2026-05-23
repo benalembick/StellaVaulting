@@ -380,6 +380,7 @@ function getSectionFields(type) {
         { key: 'heading', label: 'Heading' },
         { key: 'body', label: 'Body', multiline: true },
         { key: 'image', label: 'Image', type: 'image' },
+        { key: 'image_height', label: 'Image Height (px)', type: 'number' },
         { key: 'image_right', label: 'Image on Right?', type: 'checkbox' },
         { key: 'button_text', label: 'Button Text' },
         { key: 'button_url', label: 'Button URL' },

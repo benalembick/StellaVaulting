@@ -69,7 +69,12 @@ function SectionBlock({ section }) {
           <div className={`flex flex-col lg:flex-row gap-12 items-center ${data.image_right ? 'lg:flex-row-reverse' : ''}`}>
             {data.image && (
               <div className="lg:w-1/2">
-                <img src={data.image} alt={data.heading || ''} className="w-full rounded-lg border border-brand-gold/20 shadow-premium" />
+                <img
+                  src={data.image}
+                  alt={data.heading || ''}
+                  className="w-full rounded-lg border border-brand-gold/20 shadow-premium"
+                  style={data.image_height ? { height: `${data.image_height}px`, objectFit: 'cover' } : undefined}
+                />
               </div>
             )}
             <div className="lg:w-1/2">

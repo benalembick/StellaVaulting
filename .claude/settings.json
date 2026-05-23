@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"c:\\\\Users\\\\balembic\\\\Documents\\\\StellaVaulting\")",
+      "Bash(npm create *)",
+      "Bash(npm install *)"
+    ]
+  }
+}

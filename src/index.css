@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #1F1D1D;
+    color: #FAF8F6;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+}
+
+@layer components {
+  .gold-line {
+    @apply border-brand-gold/40;
+  }
+
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #B08D3C, transparent);
+  }
+
+  .card-premium {
+    @apply bg-brand-black-soft border border-brand-gold/20 rounded-lg overflow-hidden;
+    box-shadow: 0 4px 24px rgba(176,141,60,0.08);
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-gold-gradient text-brand-black font-semibold text-sm tracking-wider uppercase transition-all duration-200 hover:shadow-gold-lg hover:scale-105 rounded;
+  }
+
+  .btn-outline-gold {
+    @apply inline-flex items-center gap-2 px-6 py-3 border border-brand-gold text-brand-gold font-semibold text-sm tracking-wider uppercase transition-all duration-200 hover:bg-brand-gold hover:text-brand-black rounded;
+  }
+
+  .btn-pink {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-brand-pink text-brand-black font-semibold text-sm tracking-wider uppercase transition-all duration-200 hover:bg-brand-pink-light hover:shadow-pink rounded;
+  }
+
+  .pink-panel {
+    @apply bg-brand-pink/10 border border-brand-pink/20 rounded-lg;
+  }
+
+  .section-heading {
+    @apply font-serif text-4xl md:text-5xl text-brand-white font-light;
+  }
+
+  .section-subheading {
+    @apply font-serif text-2xl md:text-3xl text-brand-gold font-light italic;
+  }
+
+  .label-gold {
+    @apply text-xs tracking-[0.2em] uppercase text-brand-gold font-medium;
+  }
+
+  .prose-brand {
+    @apply text-brand-white/80 leading-relaxed;
+  }
+
+  .admin-sidebar-link {
+    @apply flex items-center gap-3 px-4 py-3 text-sm text-brand-white/70 hover:text-brand-white hover:bg-brand-black-light rounded-lg transition-colors;
+  }
+
+  .admin-sidebar-link.active {
+    @apply text-brand-gold bg-brand-gold/10 border border-brand-gold/20;
+  }
+
+  .admin-input {
+    @apply w-full px-4 py-2.5 bg-brand-black border border-brand-gold/20 rounded text-brand-white placeholder-brand-white/30 focus:outline-none focus:border-brand-gold/60 transition-colors text-sm;
+  }
+
+  .admin-textarea {
+    @apply w-full px-4 py-2.5 bg-brand-black border border-brand-gold/20 rounded text-brand-white placeholder-brand-white/30 focus:outline-none focus:border-brand-gold/60 transition-colors text-sm resize-y;
+  }
+
+  .admin-select {
+    @apply w-full px-4 py-2.5 bg-brand-black border border-brand-gold/20 rounded text-brand-white focus:outline-none focus:border-brand-gold/60 transition-colors text-sm;
+  }
+
+  .admin-label {
+    @apply block text-xs font-medium text-brand-white/60 mb-1.5 tracking-wider uppercase;
+  }
+
+  .admin-card {
+    @apply bg-brand-black-soft border border-brand-gold/20 rounded-xl p-6;
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #B08D3C, #C9A84C, #8E6F2E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-gold-gradient {
+    background: linear-gradient(135deg, #B08D3C 0%, #C9A84C 50%, #8E6F2E 100%);
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #B08D3C #1F1D1D;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #1F1D1D;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #B08D3C;
+    border-radius: 2px;
+  }
+}
+
+/* Star/sparkle motif */
+.star-motif::before {
+  content: '✦';
+  color: #B08D3C;
+  margin-right: 0.5rem;
+  font-size: 0.75em;
+}
+
+.star-motif-after::after {
+  content: '✦';
+  color: #B08D3C;
+  margin-left: 0.5rem;
+  font-size: 0.75em;
+}

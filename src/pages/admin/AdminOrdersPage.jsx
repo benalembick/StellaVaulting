@@ -43,14 +43,14 @@ export default function AdminOrdersPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="font-serif text-3xl text-brand-white">Orders</h1>
-        <p className="text-brand-white/50 text-sm mt-1">Donation and photo purchase orders</p>
+        <h1 className="font-serif text-3xl text-brand-ink">Orders</h1>
+        <p className="text-brand-ink/50 text-sm mt-1">Donation and photo purchase orders</p>
       </div>
 
       {loading ? (
         <div className="flex justify-center py-10"><div className="w-6 h-6 border-2 border-brand-gold border-t-transparent rounded-full animate-spin" /></div>
       ) : orders.length === 0 ? (
-        <div className="text-center py-16 text-brand-white/30">No orders yet.</div>
+        <div className="text-center py-16 text-brand-ink/30">No orders yet.</div>
       ) : (
         <div className="space-y-3">
           {orders.map((order) => (
@@ -61,19 +61,19 @@ export default function AdminOrdersPage() {
               >
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 flex-wrap">
-                    <p className="text-brand-white font-medium">{order.customer_name || 'Anonymous'}</p>
-                    <span className={`text-[10px] px-2 py-0.5 rounded uppercase tracking-wide ${STATUS_COLORS[order.status] || 'text-brand-white/40'}`}>
+                    <p className="text-brand-ink font-medium">{order.customer_name || 'Anonymous'}</p>
+                    <span className={`text-[10px] px-2 py-0.5 rounded uppercase tracking-wide ${STATUS_COLORS[order.status] || 'text-brand-ink/40'}`}>
                       {order.status}
                     </span>
                   </div>
-                  <p className="text-xs text-brand-white/40 mt-0.5">{order.customer_email}</p>
+                  <p className="text-xs text-brand-ink/40 mt-0.5">{order.customer_email}</p>
                   {order.message && (
                     <p className="text-xs text-brand-pink mt-1 italic">"{order.message}"</p>
                   )}
                 </div>
                 <div className="text-right flex-shrink-0">
                   <p className="text-brand-gold font-semibold">${order.total_amount?.toFixed(2)}</p>
-                  <p className="text-xs text-brand-white/40 mt-0.5">
+                  <p className="text-xs text-brand-ink/40 mt-0.5">
                     {format(new Date(order.created_at), 'd MMM yyyy')}
                   </p>
                 </div>
@@ -84,13 +84,13 @@ export default function AdminOrdersPage() {
                   <div className="space-y-2">
                     {orderItems[order.id].map((item) => (
                       <div key={item.id} className="flex items-center justify-between text-sm">
-                        <span className="text-brand-white/70">{item.item_name} × {item.quantity}</span>
+                        <span className="text-brand-ink/70">{item.item_name} × {item.quantity}</span>
                         <span className="text-brand-gold">${(item.unit_price * item.quantity).toFixed(2)}</span>
                       </div>
                     ))}
                   </div>
                   <div className="flex items-center gap-2 mt-4 flex-wrap">
-                    <span className="text-xs text-brand-white/40">Update status:</span>
+                    <span className="text-xs text-brand-ink/40">Update status:</span>
                     {['pending', 'paid', 'fulfilled', 'refunded'].map((s) => (
                       <button
                         key={s}
@@ -98,14 +98,14 @@ export default function AdminOrdersPage() {
                         className={`px-2 py-1 text-[10px] uppercase tracking-wide rounded border transition-colors ${
                           order.status === s
                             ? 'border-brand-gold text-brand-gold bg-brand-gold/10'
-                            : 'border-brand-white/10 text-brand-white/40 hover:border-brand-white/30'
+                            : 'border-brand-ink/10 text-brand-ink/40 hover:border-brand-ink/30'
                         }`}
                       >
                         {s}
                       </button>
                     ))}
                   </div>
-                  <p className="text-[10px] text-brand-white/20 mt-2 font-mono">ID: {order.id}</p>
+                  <p className="text-[10px] text-brand-ink/20 mt-2 font-mono">ID: {order.id}</p>
                 </div>
               )}
             </div>

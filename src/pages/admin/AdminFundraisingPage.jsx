@@ -56,15 +56,15 @@ export default function AdminFundraisingPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-serif text-3xl text-brand-white">Fundraising Products</h1>
-          <p className="text-brand-white/50 text-sm mt-1">Manage donation items in the fundraising shop</p>
+          <h1 className="font-serif text-3xl text-brand-ink">Fundraising Products</h1>
+          <p className="text-brand-ink/50 text-sm mt-1">Manage donation items in the fundraising shop</p>
         </div>
         <button onClick={openNew} className="btn-gold"><Plus size={16} /> Add Product</button>
       </div>
 
       {editing && (
         <div className="admin-card mb-6">
-          <h2 className="font-serif text-xl text-brand-white mb-5">{editing === 'new' ? 'Add Product' : 'Edit Product'}</h2>
+          <h2 className="font-serif text-xl text-brand-ink mb-5">{editing === 'new' ? 'Add Product' : 'Edit Product'}</h2>
           <div className="grid md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
               <label className="admin-label">Product Name *</label>
@@ -84,7 +84,7 @@ export default function AdminFundraisingPage() {
             </div>
             <div className="flex items-center gap-2 pt-5">
               <label className="admin-label mb-0">Published</label>
-              <button type="button" onClick={() => setForm({ ...form, published: !form.published })} className={`w-10 h-5 rounded-full transition-colors ${form.published ? 'bg-brand-gold' : 'bg-brand-white/20'}`}>
+              <button type="button" onClick={() => setForm({ ...form, published: !form.published })} className={`w-10 h-5 rounded-full transition-colors ${form.published ? 'bg-brand-gold' : 'bg-brand-ink/15'}`}>
                 <div className={`w-4 h-4 rounded-full bg-white shadow transition-transform mx-0.5 ${form.published ? 'translate-x-5' : ''}`} />
               </button>
             </div>
@@ -112,24 +112,24 @@ export default function AdminFundraisingPage() {
         <div className="space-y-3">
           {products.map((p) => (
             <div key={p.id} className="admin-card flex items-center gap-4">
-              <GripVertical size={16} className="text-brand-white/20" />
+              <GripVertical size={16} className="text-brand-ink/20" />
               <div className="w-10 h-10 bg-brand-gold/10 rounded flex items-center justify-center text-xl flex-shrink-0">
                 {p.emoji || '🎁'}
               </div>
               {p.image && <img src={p.image} alt={p.name} className="w-10 h-10 object-cover rounded flex-shrink-0" />}
               <div className="flex-1 min-w-0">
-                <p className="text-brand-white font-medium truncate">{p.name}</p>
-                {p.description && <p className="text-brand-white/40 text-xs mt-0.5 truncate">{p.description}</p>}
+                <p className="text-brand-ink font-medium truncate">{p.name}</p>
+                {p.description && <p className="text-brand-ink/40 text-xs mt-0.5 truncate">{p.description}</p>}
               </div>
               <span className="text-brand-gold font-semibold text-sm flex-shrink-0">${p.price.toFixed(2)}</span>
               <div className="flex items-center gap-2 flex-shrink-0">
-                <button onClick={() => toggle(p)} className={p.published ? 'text-green-400' : 'text-brand-white/30'}>{p.published ? <Eye size={14} /> : <EyeOff size={14} />}</button>
-                <button onClick={() => openEdit(p)} className="text-brand-white/50 hover:text-brand-gold transition-colors"><Edit2 size={14} /></button>
-                <button onClick={() => del(p.id)} className="text-brand-white/30 hover:text-red-400 transition-colors"><Trash2 size={14} /></button>
+                <button onClick={() => toggle(p)} className={p.published ? 'text-green-400' : 'text-brand-ink/30'}>{p.published ? <Eye size={14} /> : <EyeOff size={14} />}</button>
+                <button onClick={() => openEdit(p)} className="text-brand-ink/50 hover:text-brand-gold transition-colors"><Edit2 size={14} /></button>
+                <button onClick={() => del(p.id)} className="text-brand-ink/30 hover:text-red-400 transition-colors"><Trash2 size={14} /></button>
               </div>
             </div>
           ))}
-          {products.length === 0 && <div className="text-center py-12 text-brand-white/30"><p>No products yet.</p></div>}
+          {products.length === 0 && <div className="text-center py-12 text-brand-ink/30"><p>No products yet.</p></div>}
         </div>
       )}
     </div>

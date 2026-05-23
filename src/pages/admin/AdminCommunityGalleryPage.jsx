@@ -77,8 +77,8 @@ export default function AdminCommunityGalleryPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-serif text-3xl text-brand-white">Community Gallery</h1>
-          <p className="text-brand-white/50 text-sm mt-1">Manage community event photos and sales</p>
+          <h1 className="font-serif text-3xl text-brand-ink">Community Gallery</h1>
+          <p className="text-brand-ink/50 text-sm mt-1">Manage community event photos and sales</p>
         </div>
         <div className="flex gap-2">
           <button onClick={openNewGal} className="btn-outline-gold text-xs py-2 px-4"><Plus size={14} /> Album</button>
@@ -88,7 +88,7 @@ export default function AdminCommunityGalleryPage() {
 
       {editingGal && (
         <div className="admin-card mb-6">
-          <h2 className="font-serif text-lg text-brand-white mb-4">{editingGal === 'new' ? 'New Event Album' : 'Edit Album'}</h2>
+          <h2 className="font-serif text-lg text-brand-ink mb-4">{editingGal === 'new' ? 'New Event Album' : 'Edit Album'}</h2>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className="admin-label">Album / Event Name *</label>
@@ -108,7 +108,7 @@ export default function AdminCommunityGalleryPage() {
 
       {editingImg && (
         <div className="admin-card mb-6">
-          <h2 className="font-serif text-lg text-brand-white mb-4">{editingImg === 'new' ? 'Upload Community Photo' : 'Edit Photo'}</h2>
+          <h2 className="font-serif text-lg text-brand-ink mb-4">{editingImg === 'new' ? 'Upload Community Photo' : 'Edit Photo'}</h2>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className="admin-label">Event Album *</label>
@@ -144,13 +144,13 @@ export default function AdminCommunityGalleryPage() {
             <div className="flex items-center gap-6 pt-4">
               <div className="flex items-center gap-2">
                 <label className="admin-label mb-0">For Sale</label>
-                <button type="button" onClick={() => setImgForm({ ...imgForm, for_sale: !imgForm.for_sale })} className={`w-10 h-5 rounded-full transition-colors ${imgForm.for_sale ? 'bg-brand-gold' : 'bg-brand-white/20'}`}>
+                <button type="button" onClick={() => setImgForm({ ...imgForm, for_sale: !imgForm.for_sale })} className={`w-10 h-5 rounded-full transition-colors ${imgForm.for_sale ? 'bg-brand-gold' : 'bg-brand-ink/15'}`}>
                   <div className={`w-4 h-4 rounded-full bg-white shadow transition-transform mx-0.5 ${imgForm.for_sale ? 'translate-x-5' : ''}`} />
                 </button>
               </div>
               <div className="flex items-center gap-2">
                 <label className="admin-label mb-0">Published</label>
-                <button type="button" onClick={() => setImgForm({ ...imgForm, published: !imgForm.published })} className={`w-10 h-5 rounded-full transition-colors ${imgForm.published ? 'bg-brand-gold' : 'bg-brand-white/20'}`}>
+                <button type="button" onClick={() => setImgForm({ ...imgForm, published: !imgForm.published })} className={`w-10 h-5 rounded-full transition-colors ${imgForm.published ? 'bg-brand-gold' : 'bg-brand-ink/15'}`}>
                   <div className={`w-4 h-4 rounded-full bg-white shadow transition-transform mx-0.5 ${imgForm.published ? 'translate-x-5' : ''}`} />
                 </button>
               </div>
@@ -175,15 +175,15 @@ export default function AdminCommunityGalleryPage() {
 
       <div className="grid lg:grid-cols-4 gap-6">
         <div className="lg:col-span-1">
-          <h3 className="text-xs tracking-widest uppercase text-brand-white/40 mb-3">Event Albums</h3>
+          <h3 className="text-xs tracking-widest uppercase text-brand-ink/40 mb-3">Event Albums</h3>
           <div className="space-y-2">
-            <button onClick={() => setActiveGallery(null)} className={`w-full text-left px-3 py-2 rounded text-sm ${!activeGallery ? 'bg-brand-gold/10 text-brand-gold' : 'text-brand-white/60 hover:text-brand-white'}`}>
+            <button onClick={() => setActiveGallery(null)} className={`w-full text-left px-3 py-2 rounded text-sm ${!activeGallery ? 'bg-brand-gold/10 text-brand-gold' : 'text-brand-ink/60 hover:text-brand-ink'}`}>
               All Photos
             </button>
             {galleries.map((g) => (
               <div key={g.id} className={`flex items-center rounded border transition-colors ${activeGallery === g.id ? 'border-brand-gold/20 bg-brand-gold/5' : 'border-transparent'}`}>
-                <button onClick={() => setActiveGallery(g.id)} className={`flex-1 text-left px-3 py-2 text-sm ${activeGallery === g.id ? 'text-brand-gold' : 'text-brand-white/60'}`}>{g.name}</button>
-                <button onClick={() => openEditGal(g)} className="p-1 text-brand-white/20 hover:text-brand-gold"><Edit2 size={11} /></button>
+                <button onClick={() => setActiveGallery(g.id)} className={`flex-1 text-left px-3 py-2 text-sm ${activeGallery === g.id ? 'text-brand-gold' : 'text-brand-ink/60'}`}>{g.name}</button>
+                <button onClick={() => openEditGal(g)} className="p-1 text-brand-ink/20 hover:text-brand-gold"><Edit2 size={11} /></button>
               </div>
             ))}
           </div>
@@ -193,7 +193,7 @@ export default function AdminCommunityGalleryPage() {
           {loading ? (
             <div className="flex justify-center py-10"><div className="w-6 h-6 border-2 border-brand-gold border-t-transparent rounded-full animate-spin" /></div>
           ) : images.length === 0 ? (
-            <div className="text-center py-12 text-brand-white/30 border-2 border-dashed border-brand-gold/10 rounded-lg">
+            <div className="text-center py-12 text-brand-ink/30 border-2 border-dashed border-brand-gold/10 rounded-lg">
               <FolderOpen size={32} className="mx-auto mb-3 opacity-40" />
               <p>No community photos yet.</p>
             </div>

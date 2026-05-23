@@ -120,15 +120,15 @@ export default function AdminPagesPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-serif text-3xl text-brand-white">Pages</h1>
-          <p className="text-brand-white/50 text-sm mt-1">Manage page content and sections</p>
+          <h1 className="font-serif text-3xl text-brand-ink">Pages</h1>
+          <p className="text-brand-ink/50 text-sm mt-1">Manage page content and sections</p>
         </div>
         <button onClick={() => { setEditingPage('new'); setPageForm(EMPTY_PAGE) }} className="btn-gold"><Plus size={16} /> New Page</button>
       </div>
 
       {editingPage && (
         <div className="admin-card mb-6">
-          <h2 className="font-serif text-lg text-brand-white mb-4">{editingPage === 'new' ? 'New Page' : 'Edit Page'}</h2>
+          <h2 className="font-serif text-lg text-brand-ink mb-4">{editingPage === 'new' ? 'New Page' : 'Edit Page'}</h2>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className="admin-label">Page Title *</label>
@@ -144,7 +144,7 @@ export default function AdminPagesPage() {
             </div>
             <div className="flex items-center gap-2">
               <label className="admin-label mb-0">Published</label>
-              <button type="button" onClick={() => setPageForm({ ...pageForm, published: !pageForm.published })} className={`w-10 h-5 rounded-full transition-colors ${pageForm.published ? 'bg-brand-gold' : 'bg-brand-white/20'}`}>
+              <button type="button" onClick={() => setPageForm({ ...pageForm, published: !pageForm.published })} className={`w-10 h-5 rounded-full transition-colors ${pageForm.published ? 'bg-brand-gold' : 'bg-brand-ink/15'}`}>
                 <div className={`w-4 h-4 rounded-full bg-white shadow transition-transform mx-0.5 ${pageForm.published ? 'translate-x-5' : ''}`} />
               </button>
             </div>
@@ -161,16 +161,16 @@ export default function AdminPagesPage() {
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Pages list */}
         <div>
-          <h3 className="text-xs tracking-widest uppercase text-brand-white/40 mb-3">Pages</h3>
+          <h3 className="text-xs tracking-widest uppercase text-brand-ink/40 mb-3">Pages</h3>
           <div className="space-y-2">
             {pages.map((p) => (
               <div key={p.id} className={`flex items-center gap-2 rounded border transition-colors cursor-pointer ${activePage?.id === p.id ? 'border-brand-gold/30 bg-brand-gold/5' : 'border-transparent hover:border-brand-gold/10'}`}>
-                <button onClick={() => { setActivePage(p); setEditingSection(null) }} className={`flex-1 text-left px-3 py-2.5 text-sm ${activePage?.id === p.id ? 'text-brand-gold' : 'text-brand-white/70 hover:text-brand-white'}`}>
+                <button onClick={() => { setActivePage(p); setEditingSection(null) }} className={`flex-1 text-left px-3 py-2.5 text-sm ${activePage?.id === p.id ? 'text-brand-gold' : 'text-brand-ink/70 hover:text-brand-ink'}`}>
                   {p.title}
-                  {!p.published && <span className="ml-2 text-[9px] text-brand-white/30 uppercase">Draft</span>}
+                  {!p.published && <span className="ml-2 text-[9px] text-brand-ink/30 uppercase">Draft</span>}
                 </button>
-                <button onClick={() => togglePage(p)} className={`p-1 ${p.published ? 'text-green-400' : 'text-brand-white/20'}`}>{p.published ? <Eye size={12} /> : <EyeOff size={12} />}</button>
-                <button onClick={() => { setEditingPage(p.id); setPageForm({ slug: p.slug, title: p.title, meta_description: p.meta_description || '', published: p.published }) }} className="p-1 text-brand-white/20 hover:text-brand-gold"><Edit2 size={12} /></button>
+                <button onClick={() => togglePage(p)} className={`p-1 ${p.published ? 'text-green-400' : 'text-brand-ink/20'}`}>{p.published ? <Eye size={12} /> : <EyeOff size={12} />}</button>
+                <button onClick={() => { setEditingPage(p.id); setPageForm({ slug: p.slug, title: p.title, meta_description: p.meta_description || '', published: p.published }) }} className="p-1 text-brand-ink/20 hover:text-brand-gold"><Edit2 size={12} /></button>
               </div>
             ))}
             {loading && <div className="py-4 text-center"><div className="w-4 h-4 border-2 border-brand-gold border-t-transparent rounded-full animate-spin mx-auto" /></div>}
@@ -182,7 +182,7 @@ export default function AdminPagesPage() {
           {activePage ? (
             <>
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-xs tracking-widest uppercase text-brand-white/40">
+                <h3 className="text-xs tracking-widest uppercase text-brand-ink/40">
                   Sections — {activePage.title}
                 </h3>
                 <button onClick={() => setAddingSection(true)} className="text-xs text-brand-gold hover:text-brand-gold-light flex items-center gap-1">
@@ -207,19 +207,19 @@ export default function AdminPagesPage() {
                   <div key={s.id} className="admin-card">
                     <div className="flex items-center gap-3">
                       <div className="flex flex-col gap-0.5">
-                        <button onClick={() => moveSection(s.id, -1)} disabled={idx === 0} className="text-brand-white/20 hover:text-brand-gold disabled:opacity-10"><ChevronUp size={14} /></button>
-                        <button onClick={() => moveSection(s.id, 1)} disabled={idx === sections.length - 1} className="text-brand-white/20 hover:text-brand-gold disabled:opacity-10"><ChevronDown size={14} /></button>
+                        <button onClick={() => moveSection(s.id, -1)} disabled={idx === 0} className="text-brand-ink/20 hover:text-brand-gold disabled:opacity-10"><ChevronUp size={14} /></button>
+                        <button onClick={() => moveSection(s.id, 1)} disabled={idx === sections.length - 1} className="text-brand-ink/20 hover:text-brand-gold disabled:opacity-10"><ChevronDown size={14} /></button>
                       </div>
                       <div className="flex-1">
                         <span className="text-xs bg-brand-gold/10 text-brand-gold px-2 py-0.5 rounded capitalize">
                           {SECTION_TYPES.find((t) => t.value === s.section_type)?.label || s.section_type}
                         </span>
-                        {s.content?.title && <span className="text-xs text-brand-white/50 ml-2">— {s.content.title}</span>}
+                        {s.content?.title && <span className="text-xs text-brand-ink/50 ml-2">— {s.content.title}</span>}
                       </div>
                       <div className="flex items-center gap-2">
-                        <button onClick={() => toggleSection(s)} className={s.published ? 'text-green-400' : 'text-brand-white/30'}>{s.published ? <Eye size={13} /> : <EyeOff size={13} />}</button>
-                        <button onClick={() => { setEditingSection(s.id); setSectionContent(s.content || {}) }} className="text-brand-white/50 hover:text-brand-gold"><Edit2 size={13} /></button>
-                        <button onClick={() => deleteSection(s.id)} className="text-brand-white/20 hover:text-red-400"><Trash2 size={13} /></button>
+                        <button onClick={() => toggleSection(s)} className={s.published ? 'text-green-400' : 'text-brand-ink/30'}>{s.published ? <Eye size={13} /> : <EyeOff size={13} />}</button>
+                        <button onClick={() => { setEditingSection(s.id); setSectionContent(s.content || {}) }} className="text-brand-ink/50 hover:text-brand-gold"><Edit2 size={13} /></button>
+                        <button onClick={() => deleteSection(s.id)} className="text-brand-ink/20 hover:text-red-400"><Trash2 size={13} /></button>
                       </div>
                     </div>
 
@@ -236,14 +236,14 @@ export default function AdminPagesPage() {
                   </div>
                 ))}
                 {sections.length === 0 && (
-                  <div className="text-center py-8 text-brand-white/30 border-2 border-dashed border-brand-gold/10 rounded-lg">
+                  <div className="text-center py-8 text-brand-ink/30 border-2 border-dashed border-brand-gold/10 rounded-lg">
                     <p className="text-sm">No sections yet. Add one above.</p>
                   </div>
                 )}
               </div>
             </>
           ) : (
-            <div className="text-center py-12 text-brand-white/30 border-2 border-dashed border-brand-gold/10 rounded-lg">
+            <div className="text-center py-12 text-brand-ink/30 border-2 border-dashed border-brand-gold/10 rounded-lg">
               <p>Select a page to edit its sections</p>
             </div>
           )}
@@ -267,7 +267,7 @@ function SectionContentEditor({ type, content, onChange, onSave, onCancel, savin
             ) : fType === 'checkbox' ? (
               <div className="flex items-center gap-2 mt-1">
                 <input type="checkbox" checked={!!content[key]} onChange={(e) => onChange({ ...content, [key]: e.target.checked })} className="w-4 h-4 accent-brand-gold" />
-                <span className="text-xs text-brand-white/50">Enable</span>
+                <span className="text-xs text-brand-ink/50">Enable</span>
               </div>
             ) : (
               <input className="admin-input" type={fType || 'text'} value={content[key] || ''} onChange={(e) => onChange({ ...content, [key]: e.target.value })} />

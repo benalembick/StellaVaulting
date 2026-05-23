@@ -88,8 +88,8 @@ export default function AdminGalleryPage({ galleryType = 'stella' }) {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-serif text-3xl text-brand-white">{title}</h1>
-          <p className="text-brand-white/50 text-sm mt-1">Manage albums and photos</p>
+          <h1 className="font-serif text-3xl text-brand-ink">{title}</h1>
+          <p className="text-brand-ink/50 text-sm mt-1">Manage albums and photos</p>
         </div>
         <div className="flex gap-2">
           <button onClick={openNewGal} className="btn-outline-gold text-xs py-2 px-4"><Plus size={14} /> Album</button>
@@ -100,7 +100,7 @@ export default function AdminGalleryPage({ galleryType = 'stella' }) {
       {/* Gallery album editor */}
       {editingGal && (
         <div className="admin-card mb-6">
-          <h2 className="font-serif text-lg text-brand-white mb-4">{editingGal === 'new' ? 'New Album' : 'Edit Album'}</h2>
+          <h2 className="font-serif text-lg text-brand-ink mb-4">{editingGal === 'new' ? 'New Album' : 'Edit Album'}</h2>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className="admin-label">Album Name *</label>
@@ -125,7 +125,7 @@ export default function AdminGalleryPage({ galleryType = 'stella' }) {
       {/* Image editor */}
       {editingImg && (
         <div className="admin-card mb-6">
-          <h2 className="font-serif text-lg text-brand-white mb-4">{editingImg === 'new' ? 'Upload Photo' : 'Edit Photo'}</h2>
+          <h2 className="font-serif text-lg text-brand-ink mb-4">{editingImg === 'new' ? 'Upload Photo' : 'Edit Photo'}</h2>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className="admin-label">Album *</label>
@@ -170,11 +170,11 @@ export default function AdminGalleryPage({ galleryType = 'stella' }) {
       {/* Albums sidebar + images grid */}
       <div className="grid lg:grid-cols-4 gap-6">
         <div className="lg:col-span-1">
-          <h3 className="text-xs tracking-widest uppercase text-brand-white/40 mb-3">Albums</h3>
+          <h3 className="text-xs tracking-widest uppercase text-brand-ink/40 mb-3">Albums</h3>
           <div className="space-y-2">
             <button
               onClick={() => setActiveGallery(null)}
-              className={`w-full text-left px-3 py-2 rounded text-sm transition-colors ${!activeGallery ? 'bg-brand-gold/10 text-brand-gold border border-brand-gold/20' : 'text-brand-white/60 hover:text-brand-white'}`}
+              className={`w-full text-left px-3 py-2 rounded text-sm transition-colors ${!activeGallery ? 'bg-brand-gold/10 text-brand-gold border border-brand-gold/20' : 'text-brand-ink/60 hover:text-brand-ink'}`}
             >
               All Photos
             </button>
@@ -182,12 +182,12 @@ export default function AdminGalleryPage({ galleryType = 'stella' }) {
               <div key={g.id} className={`flex items-center gap-1 rounded border transition-colors ${activeGallery === g.id ? 'border-brand-gold/20 bg-brand-gold/5' : 'border-transparent'}`}>
                 <button
                   onClick={() => setActiveGallery(g.id)}
-                  className={`flex-1 text-left px-3 py-2 text-sm ${activeGallery === g.id ? 'text-brand-gold' : 'text-brand-white/60 hover:text-brand-white'}`}
+                  className={`flex-1 text-left px-3 py-2 text-sm ${activeGallery === g.id ? 'text-brand-gold' : 'text-brand-ink/60 hover:text-brand-ink'}`}
                 >
                   {g.name}
                 </button>
-                <button onClick={() => openEditGal(g)} className="p-1 text-brand-white/20 hover:text-brand-gold"><Edit2 size={11} /></button>
-                <button onClick={() => delGal(g.id)} className="p-1 text-brand-white/20 hover:text-red-400"><Trash2 size={11} /></button>
+                <button onClick={() => openEditGal(g)} className="p-1 text-brand-ink/20 hover:text-brand-gold"><Edit2 size={11} /></button>
+                <button onClick={() => delGal(g.id)} className="p-1 text-brand-ink/20 hover:text-red-400"><Trash2 size={11} /></button>
               </div>
             ))}
           </div>
@@ -197,7 +197,7 @@ export default function AdminGalleryPage({ galleryType = 'stella' }) {
           {loading ? (
             <div className="flex justify-center py-10"><div className="w-6 h-6 border-2 border-brand-gold border-t-transparent rounded-full animate-spin" /></div>
           ) : images.length === 0 ? (
-            <div className="text-center py-12 text-brand-white/30 border-2 border-dashed border-brand-gold/10 rounded-lg">
+            <div className="text-center py-12 text-brand-ink/30 border-2 border-dashed border-brand-gold/10 rounded-lg">
               <FolderOpen size={32} className="mx-auto mb-3 opacity-40" />
               <p>No photos yet. Upload the first one!</p>
             </div>
@@ -210,7 +210,7 @@ export default function AdminGalleryPage({ galleryType = 'stella' }) {
                     <div className="p-2 w-full">
                       {img.title && <p className="text-xs text-white truncate">{img.title}</p>}
                       <div className="flex gap-1 mt-1">
-                        <button onClick={() => toggleImg(img)} className={`flex-1 py-1 rounded text-[10px] ${img.published ? 'bg-green-600/40 text-green-300' : 'bg-brand-white/10 text-white/50'}`}>
+                        <button onClick={() => toggleImg(img)} className={`flex-1 py-1 rounded text-[10px] ${img.published ? 'bg-green-600/40 text-green-300' : 'bg-brand-ink/10 text-brand-ink/50'}`}>
                           {img.published ? <Eye size={10} className="mx-auto" /> : <EyeOff size={10} className="mx-auto" />}
                         </button>
                         <button onClick={() => openEditImg(img)} className="flex-1 py-1 bg-brand-gold/20 text-brand-gold rounded"><Edit2 size={10} className="mx-auto" /></button>

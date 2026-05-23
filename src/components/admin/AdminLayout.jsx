@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { NavLink, Link, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard, FileText, Users, Calendar, Heart, Image,
-  Camera, ShoppingBag, Award, Settings, LogOut, Menu, X, ChevronRight
+  Camera, ShoppingBag, Award, LogOut, Menu, X, ChevronRight
 } from 'lucide-react'
 import Logo from '../Logo'
 import { useAuth } from '../../context/AuthContext'
@@ -36,18 +36,18 @@ export default function AdminLayout({ children }) {
   }
 
   return (
-    <div className="min-h-screen bg-brand-black flex">
+    <div className="min-h-screen bg-brand-surface-alt flex">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/60 z-30 lg:hidden"
+          className="fixed inset-0 bg-black/30 z-30 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 w-64 bg-brand-black-soft border-r border-brand-gold/20 z-40 flex flex-col transition-transform duration-300 ${
+        className={`fixed top-0 left-0 bottom-0 w-64 bg-white border-r border-brand-gold/20 z-40 flex flex-col transition-transform duration-300 shadow-nav ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
@@ -57,14 +57,14 @@ export default function AdminLayout({ children }) {
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="lg:hidden text-brand-white/50 hover:text-brand-white"
+            className="lg:hidden text-brand-ink/40 hover:text-brand-ink"
           >
             <X size={18} />
           </button>
         </div>
 
         <nav className="flex-1 overflow-y-auto scrollbar-thin px-3 py-4">
-          <p className="text-[10px] tracking-[0.2em] uppercase text-brand-white/30 px-2 mb-2">Navigation</p>
+          <p className="text-[10px] tracking-[0.2em] uppercase text-brand-ink/30 px-2 mb-2">Navigation</p>
           <ul className="space-y-1">
             {navItems.map(({ to, label, icon: Icon, end }) => (
               <li key={to}>
@@ -87,24 +87,24 @@ export default function AdminLayout({ children }) {
 
         <div className="px-4 py-4 border-t border-brand-gold/20">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-8 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold text-sm font-semibold">
+            <div className="w-8 h-8 rounded-full bg-brand-gold/15 flex items-center justify-center text-brand-gold text-sm font-semibold">
               {user?.email?.[0]?.toUpperCase() || 'A'}
             </div>
             <div className="min-w-0">
-              <p className="text-xs text-brand-white truncate">{user?.email}</p>
+              <p className="text-xs text-brand-ink truncate">{user?.email}</p>
               <p className="text-[10px] text-brand-gold">Administrator</p>
             </div>
           </div>
           <Link
             to="/"
             target="_blank"
-            className="flex items-center gap-2 text-xs text-brand-white/50 hover:text-brand-white transition-colors mb-2"
+            className="flex items-center gap-2 text-xs text-brand-ink/50 hover:text-brand-ink transition-colors mb-2"
           >
             View Site ↗
           </Link>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 text-xs text-brand-white/50 hover:text-red-400 transition-colors w-full"
+            className="flex items-center gap-2 text-xs text-brand-ink/50 hover:text-red-500 transition-colors w-full"
           >
             <LogOut size={13} /> Sign Out
           </button>
@@ -114,10 +114,10 @@ export default function AdminLayout({ children }) {
       {/* Main content */}
       <div className="flex-1 lg:ml-64 flex flex-col min-h-screen">
         {/* Mobile header */}
-        <div className="lg:hidden flex items-center gap-4 px-4 py-4 bg-brand-black-soft border-b border-brand-gold/20 sticky top-0 z-20">
+        <div className="lg:hidden flex items-center gap-4 px-4 py-4 bg-white border-b border-brand-gold/20 sticky top-0 z-20 shadow-nav">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="text-brand-white/70 hover:text-brand-white"
+            className="text-brand-ink/60 hover:text-brand-ink"
           >
             <Menu size={22} />
           </button>

@@ -52,15 +52,15 @@ export default function AdminSponsorshipPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-serif text-3xl text-brand-white">Sponsorship</h1>
-          <p className="text-brand-white/50 text-sm mt-1">Manage sponsorship opportunities and packages</p>
+          <h1 className="font-serif text-3xl text-brand-ink">Sponsorship</h1>
+          <p className="text-brand-ink/50 text-sm mt-1">Manage sponsorship opportunities and packages</p>
         </div>
         <button onClick={openNew} className="btn-gold"><Plus size={16} /> Add Opportunity</button>
       </div>
 
       {editing && (
         <div className="admin-card mb-6">
-          <h2 className="font-serif text-xl text-brand-white mb-5">{editing === 'new' ? 'New Opportunity' : 'Edit Opportunity'}</h2>
+          <h2 className="font-serif text-xl text-brand-ink mb-5">{editing === 'new' ? 'New Opportunity' : 'Edit Opportunity'}</h2>
           <div className="grid md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
               <label className="admin-label">Title *</label>
@@ -119,20 +119,20 @@ export default function AdminSponsorshipPage() {
               {s.image && <img src={s.image} alt={s.title} className="w-14 h-14 object-cover rounded flex-shrink-0" />}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <p className="text-brand-white font-medium truncate">{s.title}</p>
+                  <p className="text-brand-ink font-medium truncate">{s.title}</p>
                   {s.tier && <span className="text-[10px] bg-brand-gold/10 text-brand-gold px-1.5 py-0.5 rounded capitalize">{s.tier}</span>}
                 </div>
-                {s.description && <p className="text-brand-white/40 text-xs truncate mt-0.5">{s.description}</p>}
+                {s.description && <p className="text-brand-ink/40 text-xs truncate mt-0.5">{s.description}</p>}
                 {s.amount && <p className="text-brand-gold text-xs mt-0.5">${s.amount.toLocaleString()}</p>}
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
-                <button onClick={() => toggle(s)} className={s.published ? 'text-green-400' : 'text-brand-white/30'}>{s.published ? <Eye size={14} /> : <EyeOff size={14} />}</button>
-                <button onClick={() => openEdit(s)} className="text-brand-white/50 hover:text-brand-gold"><Edit2 size={14} /></button>
-                <button onClick={() => del(s.id)} className="text-brand-white/30 hover:text-red-400"><Trash2 size={14} /></button>
+                <button onClick={() => toggle(s)} className={s.published ? 'text-green-400' : 'text-brand-ink/30'}>{s.published ? <Eye size={14} /> : <EyeOff size={14} />}</button>
+                <button onClick={() => openEdit(s)} className="text-brand-ink/50 hover:text-brand-gold"><Edit2 size={14} /></button>
+                <button onClick={() => del(s.id)} className="text-brand-ink/30 hover:text-red-400"><Trash2 size={14} /></button>
               </div>
             </div>
           ))}
-          {items.length === 0 && <div className="text-center py-12 text-brand-white/30"><p>No sponsorship items yet.</p></div>}
+          {items.length === 0 && <div className="text-center py-12 text-brand-ink/30"><p>No sponsorship items yet.</p></div>}
         </div>
       )}
     </div>

@@ -77,9 +77,9 @@
     @apply text-brand-ink-soft leading-relaxed;
   }
 
-  /* Admin — dark theme preserved */
+  /* Admin — light theme matching frontend */
   .admin-sidebar-link {
-    @apply flex items-center gap-3 px-4 py-3 text-sm text-brand-white/70 hover:text-brand-white hover:bg-brand-black-light rounded-lg transition-colors;
+    @apply flex items-center gap-3 px-4 py-3 text-sm text-brand-ink/70 hover:text-brand-ink hover:bg-brand-surface-alt rounded-lg transition-colors;
   }
 
   .admin-sidebar-link.active {
@@ -87,23 +87,23 @@
   }
 
   .admin-input {
-    @apply w-full px-4 py-2.5 bg-brand-black border border-brand-gold/20 rounded text-brand-white placeholder-brand-white/30 focus:outline-none focus:border-brand-gold/60 transition-colors text-sm;
+    @apply w-full px-4 py-2.5 bg-white border border-brand-gold/20 rounded text-brand-ink placeholder-brand-ink/30 focus:outline-none focus:border-brand-gold/60 transition-colors text-sm;
   }
 
   .admin-textarea {
-    @apply w-full px-4 py-2.5 bg-brand-black border border-brand-gold/20 rounded text-brand-white placeholder-brand-white/30 focus:outline-none focus:border-brand-gold/60 transition-colors text-sm resize-y;
+    @apply w-full px-4 py-2.5 bg-white border border-brand-gold/20 rounded text-brand-ink placeholder-brand-ink/30 focus:outline-none focus:border-brand-gold/60 transition-colors text-sm resize-y;
   }
 
   .admin-select {
-    @apply w-full px-4 py-2.5 bg-brand-black border border-brand-gold/20 rounded text-brand-white focus:outline-none focus:border-brand-gold/60 transition-colors text-sm;
+    @apply w-full px-4 py-2.5 bg-white border border-brand-gold/20 rounded text-brand-ink focus:outline-none focus:border-brand-gold/60 transition-colors text-sm;
   }
 
   .admin-label {
-    @apply block text-xs font-medium text-brand-white/60 mb-1.5 tracking-wider uppercase;
+    @apply block text-xs font-medium text-brand-ink/60 mb-1.5 tracking-wider uppercase;
   }
 
   .admin-card {
-    @apply bg-brand-black-soft border border-brand-gold/20 rounded-xl p-6;
+    @apply bg-white border border-brand-gold/[0.15] rounded-xl p-6 shadow-card;
   }
 }
 

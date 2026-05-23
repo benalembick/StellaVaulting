@@ -41,7 +41,7 @@ export default function CommunityGalleryPage() {
     })
     setAdded((prev) => ({ ...prev, [img.id]: true }))
     toast.success('Photo added to cart! Purchase to receive the high-resolution download.', {
-      style: { background: '#2A2828', color: '#FAF8F6', border: '1px solid rgba(176,141,60,0.3)' },
+      style: { background: '#FFFFFF', color: '#333333', border: '1px solid rgba(176,141,60,0.25)' },
       duration: 3000,
     })
     setTimeout(() => setAdded((prev) => ({ ...prev, [img.id]: false })), 2000)
@@ -49,23 +49,23 @@ export default function CommunityGalleryPage() {
 
   return (
     <div className="pt-20">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 text-center">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-14 text-center">
         <p className="label-gold mb-4">✦ Community ✦</p>
-        <h1 className="font-serif text-5xl md:text-6xl text-brand-white font-light">Community Gallery</h1>
-        <p className="mt-4 text-brand-white/50 max-w-2xl mx-auto leading-relaxed">
+        <h1 className="font-serif text-5xl md:text-6xl text-brand-ink font-light">Community Gallery</h1>
+        <p className="mt-4 text-brand-ink-soft max-w-2xl mx-auto leading-relaxed">
           Photos from events featuring vaulters from clubs across the region.
           Preview images are watermarked — purchase to receive the full high-resolution download.
         </p>
         <div className="gold-divider w-24 mx-auto mt-6" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         {/* Info banner */}
-        <div className="pink-panel p-5 flex items-center gap-4 mb-8">
-          <Lock size={20} className="text-brand-pink flex-shrink-0" />
+        <div className="pink-panel p-5 flex items-center gap-4 mb-10">
+          <Lock size={20} className="text-brand-gold flex-shrink-0" />
           <div>
-            <p className="text-sm text-brand-white font-medium">Preview images are watermarked</p>
-            <p className="text-xs text-brand-white/60 mt-0.5">
+            <p className="text-sm text-brand-ink font-medium">Preview images are watermarked</p>
+            <p className="text-xs text-brand-ink-soft mt-0.5">
               Add photos to cart and complete checkout to receive full high-resolution downloads.
               Our team will fulfil digital orders within 48 hours of payment.
             </p>
@@ -73,11 +73,11 @@ export default function CommunityGalleryPage() {
         </div>
 
         {/* Gallery filter */}
-        <div className="flex flex-wrap gap-3 mb-8">
+        <div className="flex flex-wrap gap-3 mb-10">
           <button
             onClick={() => setActiveGallery(null)}
-            className={`px-4 py-1.5 text-xs tracking-wider uppercase rounded border transition-colors ${
-              !activeGallery ? 'border-brand-gold text-brand-gold bg-brand-gold/10' : 'border-brand-gold/20 text-brand-white/50 hover:border-brand-gold/40'
+            className={`px-4 py-1.5 text-xs tracking-wider uppercase rounded-full border transition-colors ${
+              !activeGallery ? 'border-brand-gold text-brand-gold bg-brand-gold/10' : 'border-brand-gold/20 text-brand-ink-soft hover:border-brand-gold/40'
             }`}
           >
             All Events
@@ -86,8 +86,8 @@ export default function CommunityGalleryPage() {
             <button
               key={g.id}
               onClick={() => setActiveGallery(g.id)}
-              className={`px-4 py-1.5 text-xs tracking-wider uppercase rounded border transition-colors ${
-                activeGallery === g.id ? 'border-brand-gold text-brand-gold bg-brand-gold/10' : 'border-brand-gold/20 text-brand-white/50 hover:border-brand-gold/40'
+              className={`px-4 py-1.5 text-xs tracking-wider uppercase rounded-full border transition-colors ${
+                activeGallery === g.id ? 'border-brand-gold text-brand-gold bg-brand-gold/10' : 'border-brand-gold/20 text-brand-ink-soft hover:border-brand-gold/40'
               }`}
             >
               {g.name}
@@ -100,12 +100,12 @@ export default function CommunityGalleryPage() {
             <div className="w-8 h-8 border-2 border-brand-gold border-t-transparent rounded-full animate-spin" />
           </div>
         ) : filteredImages.length === 0 ? (
-          <div className="text-center py-20 text-brand-white/40">
+          <div className="text-center py-20 text-brand-ink/40">
             <div className="text-6xl mb-4">📷</div>
             <p>Community photos coming soon. Check back after the next event!</p>
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredImages.map((img) => (
               <div
                 key={img.id}
@@ -121,7 +121,7 @@ export default function CommunityGalleryPage() {
                       loading="lazy"
                     />
                   ) : (
-                    <div className="w-full h-full bg-brand-gold/5 flex items-center justify-center">
+                    <div className="w-full h-full bg-brand-surface-warm flex items-center justify-center">
                       <span className="text-brand-gold/30 text-5xl">📷</span>
                     </div>
                   )}
@@ -133,20 +133,20 @@ export default function CommunityGalleryPage() {
                       </p>
                     </div>
                   </div>
-                  <div className="absolute top-2 right-2 bg-brand-black/70 border border-brand-gold/30 rounded px-2 py-0.5">
+                  <div className="absolute top-2 right-2 bg-white/90 border border-brand-gold/20 rounded-full px-2.5 py-0.5">
                     <span className="text-brand-gold text-xs font-semibold">${(img.price || 10).toFixed(0)}</span>
                   </div>
                 </div>
-                <div className="p-3">
-                  {img.title && <p className="text-xs font-medium text-brand-white truncate">{img.title}</p>}
-                  {img.rider_name && <p className="text-[10px] text-brand-pink mt-0.5">{img.rider_name}</p>}
-                  {img.club_name && <p className="text-[10px] text-brand-white/40">{img.club_name}</p>}
+                <div className="p-4">
+                  {img.title && <p className="text-xs font-medium text-brand-ink truncate">{img.title}</p>}
+                  {img.rider_name && <p className="text-[10px] text-brand-gold mt-0.5">{img.rider_name}</p>}
+                  {img.club_name && <p className="text-[10px] text-brand-ink-soft">{img.club_name}</p>}
                   <button
                     onClick={(e) => { e.stopPropagation(); handleAddToCart(img) }}
-                    className={`w-full mt-3 flex items-center justify-center gap-1.5 py-1.5 text-xs font-semibold tracking-wide uppercase rounded border transition-all ${
+                    className={`w-full mt-3 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold tracking-wide uppercase rounded-full border transition-all ${
                       added[img.id]
-                        ? 'border-green-500/30 text-green-400 bg-green-600/10'
-                        : 'border-brand-gold/30 text-brand-gold bg-brand-gold/5 hover:bg-brand-gold hover:text-brand-black'
+                        ? 'border-green-300 text-green-600 bg-green-50'
+                        : 'border-brand-gold/25 text-brand-gold bg-brand-gold/5 hover:bg-brand-gold hover:text-white'
                     }`}
                   >
                     {added[img.id] ? <><Check size={11} /> Added</> : <><Plus size={11} /> Add to Cart — ${(img.price || 10).toFixed(0)}</>}

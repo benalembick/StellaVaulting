@@ -37,12 +37,12 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-brand-black/95 backdrop-blur-sm border-b border-brand-gold/20 shadow-premium'
-          : 'bg-transparent'
+          ? 'bg-white/98 backdrop-blur-sm border-b border-brand-gold/[0.2] shadow-nav'
+          : 'bg-white/80 backdrop-blur-sm'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between min-h-[216px] py-2">
           <Link to="/" className="flex-shrink-0">
             <Logo size="sm" />
           </Link>
@@ -55,10 +55,10 @@ export default function Header() {
                 to={to}
                 end={to === '/'}
                 className={({ isActive }) =>
-                  `px-3 py-2 text-xs tracking-[0.12em] uppercase font-medium transition-colors duration-200 ${
+                  `px-3 py-2 text-xs tracking-[0.1em] uppercase font-medium transition-colors duration-200 ${
                     isActive
                       ? 'text-brand-gold'
-                      : 'text-brand-white/70 hover:text-brand-white'
+                      : 'text-brand-ink/60 hover:text-brand-ink'
                   }`
                 }
               >
@@ -71,7 +71,7 @@ export default function Header() {
             {isAdmin && (
               <Link
                 to="/admin"
-                className="hidden sm:flex items-center gap-1.5 text-xs tracking-wider uppercase text-brand-pink hover:text-brand-pink-light transition-colors"
+                className="hidden sm:flex items-center gap-1.5 text-xs tracking-wider uppercase text-brand-gold/70 hover:text-brand-gold transition-colors"
               >
                 <Lock size={12} />
                 Admin
@@ -79,12 +79,12 @@ export default function Header() {
             )}
             <button
               onClick={() => setIsOpen(true)}
-              className="relative flex items-center justify-center w-10 h-10 text-brand-white/80 hover:text-brand-gold transition-colors"
+              className="relative flex items-center justify-center w-10 h-10 text-brand-ink/60 hover:text-brand-gold transition-colors"
               aria-label="Open cart"
             >
               <ShoppingCart size={20} />
               {count > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-brand-gold text-brand-black text-[10px] font-bold rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-brand-gold text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                   {count}
                 </span>
               )}
@@ -92,7 +92,7 @@ export default function Header() {
 
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden flex items-center justify-center w-10 h-10 text-brand-white/80 hover:text-brand-white transition-colors"
+              className="lg:hidden flex items-center justify-center w-10 h-10 text-brand-ink/60 hover:text-brand-ink transition-colors"
               aria-label="Toggle menu"
             >
               {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -103,7 +103,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="lg:hidden bg-brand-black/98 border-t border-brand-gold/20 backdrop-blur-sm">
+        <div className="lg:hidden bg-white border-t border-brand-gold/[0.15] shadow-nav">
           <nav className="px-4 py-4 flex flex-col gap-1">
             {navLinks.map(({ to, label }) => (
               <NavLink
@@ -111,10 +111,10 @@ export default function Header() {
                 to={to}
                 end={to === '/'}
                 className={({ isActive }) =>
-                  `px-4 py-3 text-sm tracking-wider uppercase font-medium rounded transition-colors ${
+                  `px-4 py-3 text-sm tracking-wider uppercase font-medium rounded-lg transition-colors ${
                     isActive
                       ? 'text-brand-gold bg-brand-gold/10'
-                      : 'text-brand-white/70 hover:text-brand-white hover:bg-brand-black-light'
+                      : 'text-brand-ink/70 hover:text-brand-ink hover:bg-brand-surface-alt'
                   }`
                 }
               >
@@ -124,7 +124,7 @@ export default function Header() {
             {isAdmin && (
               <Link
                 to="/admin"
-                className="px-4 py-3 text-sm tracking-wider uppercase font-medium text-brand-pink hover:text-brand-pink-light rounded"
+                className="px-4 py-3 text-sm tracking-wider uppercase font-medium text-brand-gold/70 hover:text-brand-gold rounded-lg"
               >
                 ⚙ Admin Dashboard
               </Link>

@@ -24,23 +24,22 @@ export default function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
-        <div className="absolute inset-0 bg-dark-gradient" />
+      <section className="relative min-h-screen flex items-center justify-center text-center overflow-hidden bg-hero-light">
         {/* Decorative elements */}
-        <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 opacity-[0.06]">
           <div className="absolute top-20 left-10 text-9xl text-brand-gold font-serif">✦</div>
           <div className="absolute bottom-40 right-20 text-7xl text-brand-gold font-serif">✦</div>
-          <div className="absolute top-1/2 left-1/4 text-5xl text-brand-pink font-serif">✦</div>
+          <div className="absolute top-1/2 left-1/4 text-5xl text-brand-gold font-serif">✦</div>
         </div>
-        <div className="absolute inset-0 border border-brand-gold/5 m-8 rounded-sm pointer-events-none" />
+        <div className="absolute inset-0 border border-brand-gold/[0.08] m-8 rounded-sm pointer-events-none" />
 
-        <div className="relative z-10 max-w-4xl mx-auto px-6 py-32 animate-fade-in">
+        <div className="relative z-10 max-w-4xl mx-auto px-6 py-40 animate-fade-in">
           <p className="label-gold mb-6">✦ Western Australia ✦</p>
-          <h1 className="font-serif font-light text-6xl md:text-8xl text-brand-white leading-tight tracking-tight">
+          <h1 className="font-serif font-light text-6xl md:text-8xl text-brand-ink leading-tight tracking-tight">
             Stella Vaulting
             <span className="block text-gradient-gold italic">Academy</span>
           </h1>
-          <p className="mt-8 text-lg md:text-xl text-brand-white/60 font-light max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-8 text-lg md:text-xl text-brand-ink-soft font-light max-w-2xl mx-auto leading-relaxed">
             Elite equestrian vaulting for athletes who dare to dream of the world stage.
             Training champions for the FEI World Championships.
           </p>
@@ -55,16 +54,16 @@ export default function HomePage() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-brand-white/30">
-          <div className="w-px h-12 bg-gradient-to-b from-transparent to-brand-gold/40" />
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-brand-ink/30">
+          <div className="w-px h-12 bg-gradient-to-b from-transparent to-brand-gold/50" />
           <span className="text-[10px] tracking-[0.3em] uppercase">Scroll</span>
         </div>
       </section>
 
       {/* Countdown + Fundraising CTA */}
-      <section className="py-20">
+      <section className="py-28">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
             {nextEvent ? (
               <CountdownTimer
                 eventDate={nextEvent.event_date}
@@ -73,22 +72,22 @@ export default function HomePage() {
               />
             ) : (
               <div className="card-premium p-8 text-center">
-                <p className="font-serif text-2xl text-brand-white">Upcoming Events</p>
-                <p className="text-brand-white/50 mt-2 text-sm">Check back soon for our next event</p>
+                <p className="font-serif text-2xl text-brand-ink">Upcoming Events</p>
+                <p className="text-brand-ink-soft mt-2 text-sm">Check back soon for our next event</p>
                 <Link to="/events" className="btn-outline-gold mt-6 inline-flex">View Events</Link>
               </div>
             )}
 
-            <div className="pink-panel p-8 text-center lg:text-left">
+            <div className="pink-panel p-10 text-center lg:text-left">
               <p className="label-gold mb-4">✦ Support Us ✦</p>
-              <h2 className="font-serif text-3xl text-brand-white leading-tight">
+              <h2 className="font-serif text-3xl text-brand-ink leading-tight">
                 Help us fundraise for our next event
               </h2>
-              <p className="text-brand-white/60 mt-4 leading-relaxed">
+              <p className="text-brand-ink-soft mt-4 leading-relaxed">
                 Every contribution — big or small — brings our athletes one step closer to representing Australia on the world stage.
                 Join our community of supporters and make a real difference.
               </p>
-              <Link to="/fundraising" className="btn-gold mt-6 inline-flex">
+              <Link to="/fundraising" className="btn-gold mt-8 inline-flex">
                 Donate Now <Heart size={16} />
               </Link>
             </div>
@@ -103,16 +102,16 @@ export default function HomePage() {
 
       {/* Pinned Posts */}
       {pinnedPosts.length > 0 && (
-        <section className="py-20">
+        <section className="py-28 bg-brand-surface-alt">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionHeading
               label="Latest News"
               title="From the Academy"
               subtitle="Updates & announcements"
               center
-              className="mb-12"
+              className="mb-16"
             />
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
               {pinnedPosts.map((post) => (
                 <PinnedPostCard key={post.id} post={post} />
               ))}
@@ -122,15 +121,15 @@ export default function HomePage() {
       )}
 
       {/* Three pillars */}
-      <section className="py-20">
+      <section className="py-28">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             label="Who We Are"
             title="Excellence in Vaulting"
             center
-            className="mb-12"
+            className="mb-16"
           />
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-10">
             {[
               {
                 icon: '🏆',
@@ -148,10 +147,10 @@ export default function HomePage() {
                 desc: 'We are a tight-knit community of vaulters, coaches, and supporters united by a shared love of the sport.',
               },
             ].map(({ icon, title, desc }) => (
-              <div key={title} className="card-premium p-8 text-center group hover:border-brand-gold/40 transition-all">
-                <div className="text-4xl mb-4">{icon}</div>
-                <h3 className="font-serif text-xl text-brand-white mb-3">{title}</h3>
-                <p className="text-sm text-brand-white/60 leading-relaxed">{desc}</p>
+              <div key={title} className="card-premium p-10 text-center group">
+                <div className="text-4xl mb-5">{icon}</div>
+                <h3 className="font-serif text-xl text-brand-ink mb-3">{title}</h3>
+                <p className="text-sm text-brand-ink-soft leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
@@ -159,16 +158,16 @@ export default function HomePage() {
       </section>
 
       {/* CTA Strip */}
-      <section className="py-16 bg-brand-gold/5 border-y border-brand-gold/20">
+      <section className="py-24 bg-brand-surface-warm border-y border-brand-gold/20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="label-gold mb-4">✦ Sponsor the Academy ✦</p>
-          <h2 className="font-serif text-3xl md:text-4xl text-brand-white">
+          <h2 className="font-serif text-3xl md:text-4xl text-brand-ink">
             Partner with Stella Vaulting Academy
           </h2>
-          <p className="text-brand-white/60 mt-4 max-w-2xl mx-auto">
+          <p className="text-brand-ink-soft mt-4 max-w-2xl mx-auto">
             We are looking for sponsors to help build an indoor arena and support our IVC Rising Star athlete Imelda Alembick on her international journey.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
             <Link to="/sponsorship" className="btn-gold">Explore Sponsorship</Link>
             <Link to="/team" className="btn-outline-gold">Meet Our Team</Link>
           </div>
@@ -180,7 +179,7 @@ export default function HomePage() {
 
 function PinnedPostCard({ post }) {
   return (
-    <div className="card-premium group hover:border-brand-gold/40 transition-all duration-300 flex flex-col">
+    <div className="card-premium group flex flex-col">
       {post.image && (
         <div className="aspect-video overflow-hidden">
           <img
@@ -191,22 +190,22 @@ function PinnedPostCard({ post }) {
         </div>
       )}
       {!post.image && (
-        <div className="aspect-video bg-brand-gold/5 flex items-center justify-center border-b border-brand-gold/10">
-          <span className="text-4xl text-brand-gold/30">✦</span>
+        <div className="aspect-video bg-brand-surface-warm flex items-center justify-center border-b border-brand-gold/[0.1]">
+          <span className="text-4xl text-brand-gold/25">✦</span>
         </div>
       )}
-      <div className="p-6 flex flex-col flex-1">
-        <h3 className="font-serif text-lg text-brand-white group-hover:text-brand-gold transition-colors">
+      <div className="p-7 flex flex-col flex-1">
+        <h3 className="font-serif text-lg text-brand-ink group-hover:text-brand-gold transition-colors leading-snug">
           {post.title}
         </h3>
         {post.short_description && (
-          <p className="text-sm text-brand-white/60 mt-2 leading-relaxed flex-1">
+          <p className="text-sm text-brand-ink-soft mt-3 leading-relaxed flex-1">
             {post.short_description}
           </p>
         )}
         <Link
           to={`/posts/${post.slug}`}
-          className="mt-5 flex items-center gap-2 text-xs tracking-wider uppercase text-brand-gold hover:text-brand-gold-light transition-colors"
+          className="mt-6 flex items-center gap-2 text-xs tracking-wider uppercase text-brand-gold hover:text-brand-gold-light transition-colors"
         >
           Read More <ArrowRight size={12} />
         </Link>

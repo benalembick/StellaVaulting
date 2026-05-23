@@ -37,18 +37,18 @@ export default function CountdownTimer({ eventDate, eventName, fundraisingTarget
     return (
       <div className="flex items-center gap-3 text-sm">
         <span className="text-brand-gold font-semibold">{time.days}d {pad(time.hours)}h {pad(time.minutes)}m</span>
-        <span className="text-brand-white/50">until {eventName}</span>
+        <span className="text-brand-ink-soft">until {eventName}</span>
       </div>
     )
   }
 
   return (
     <div className="card-premium overflow-hidden">
-      <div className="bg-brand-gold/10 border-b border-brand-gold/20 px-6 py-4 text-center">
+      <div className="bg-brand-blush border-b border-brand-gold/20 px-6 py-4 text-center">
         <p className="label-gold">Next Event</p>
-        <h3 className="font-serif text-xl text-brand-white mt-1">{eventName}</h3>
+        <h3 className="font-serif text-xl text-brand-ink mt-1">{eventName}</h3>
         {eventDate && (
-          <p className="text-xs text-brand-white/50 mt-1">
+          <p className="text-xs text-brand-ink-soft mt-1">
             {format(new Date(eventDate), 'EEEE, d MMMM yyyy')}
           </p>
         )}
@@ -61,15 +61,15 @@ export default function CountdownTimer({ eventDate, eventName, fundraisingTarget
             { label: 'Minutes', value: pad(time.minutes) },
             { label: 'Seconds', value: pad(time.seconds) },
           ].map(({ label, value }) => (
-            <div key={label} className="bg-brand-black rounded-lg p-3 border border-brand-gold/10">
+            <div key={label} className="bg-brand-surface-alt rounded-xl p-3 border border-brand-gold/[0.12]">
               <div className="font-serif text-3xl text-brand-gold">{value}</div>
-              <div className="text-[10px] tracking-widest uppercase text-brand-white/40 mt-1">{label}</div>
+              <div className="text-[10px] tracking-widest uppercase text-brand-ink/40 mt-1">{label}</div>
             </div>
           ))}
         </div>
         {fundraisingTarget && (
-          <div className="mt-5 pt-4 border-t border-brand-gold/10 text-center">
-            <p className="text-xs text-brand-white/50">Fundraising target</p>
+          <div className="mt-5 pt-4 border-t border-brand-gold/[0.12] text-center">
+            <p className="text-xs text-brand-ink-soft">Fundraising target</p>
             <p className="font-serif text-2xl text-brand-gold mt-1">${fundraisingTarget.toLocaleString()}</p>
           </div>
         )}

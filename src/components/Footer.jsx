@@ -4,13 +4,13 @@ import { Instagram, Facebook, Mail } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="bg-brand-black border-t border-brand-gold/20 mt-20">
+    <footer className="bg-brand-surface-warm border-t border-brand-gold/20 mt-20">
       <div className="gold-divider" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-2">
             <Logo size="md" />
-            <p className="mt-4 text-sm text-brand-white/50 leading-relaxed max-w-sm">
+            <p className="mt-4 text-sm text-brand-ink-soft leading-relaxed max-w-sm">
               Elite equestrian vaulting in Western Australia. Training champions for the FEI World Championships.
             </p>
             <div className="flex items-center gap-4 mt-6">
@@ -18,7 +18,7 @@ export default function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 flex items-center justify-center border border-brand-gold/30 rounded text-brand-white/50 hover:text-brand-gold hover:border-brand-gold transition-colors"
+                className="w-9 h-9 flex items-center justify-center border border-brand-gold/25 rounded-lg text-brand-ink-soft hover:text-brand-gold hover:border-brand-gold transition-colors"
               >
                 <Instagram size={16} />
               </a>
@@ -26,13 +26,13 @@ export default function Footer() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 flex items-center justify-center border border-brand-gold/30 rounded text-brand-white/50 hover:text-brand-gold hover:border-brand-gold transition-colors"
+                className="w-9 h-9 flex items-center justify-center border border-brand-gold/25 rounded-lg text-brand-ink-soft hover:text-brand-gold hover:border-brand-gold transition-colors"
               >
                 <Facebook size={16} />
               </a>
               <a
                 href="mailto:info@stellavaulting.com.au"
-                className="w-9 h-9 flex items-center justify-center border border-brand-gold/30 rounded text-brand-white/50 hover:text-brand-gold hover:border-brand-gold transition-colors"
+                className="w-9 h-9 flex items-center justify-center border border-brand-gold/25 rounded-lg text-brand-ink-soft hover:text-brand-gold hover:border-brand-gold transition-colors"
               >
                 <Mail size={16} />
               </a>
@@ -51,7 +51,7 @@ export default function Footer() {
                 <li key={to}>
                   <Link
                     to={to}
-                    className="text-sm text-brand-white/50 hover:text-brand-white transition-colors"
+                    className="text-sm text-brand-ink-soft hover:text-brand-ink transition-colors"
                   >
                     {label}
                   </Link>
@@ -72,7 +72,7 @@ export default function Footer() {
                 <li key={to}>
                   <Link
                     to={to}
-                    className="text-sm text-brand-white/50 hover:text-brand-white transition-colors"
+                    className="text-sm text-brand-ink-soft hover:text-brand-ink transition-colors"
                   >
                     {label}
                   </Link>
@@ -83,9 +83,9 @@ export default function Footer() {
         </div>
 
         <div className="gold-divider mt-12 mb-6" />
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-brand-white/30">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-brand-ink/40">
           <span>© {new Date().getFullYear()} Stella Vaulting Academy. All rights reserved.</span>
-          <span className="text-brand-gold/40">✦ Western Australia ✦</span>
+          <span className="text-brand-gold/60">✦ Western Australia ✦</span>
         </div>
       </div>
     </footer>

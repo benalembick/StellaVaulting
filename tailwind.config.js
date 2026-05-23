@@ -21,6 +21,13 @@ export default {
           'gold-muted': '#B08D3C20',
           white: '#FAF8F6',
           'off-white': '#F0EBE6',
+          // Light theme tokens
+          surface: '#FFFFFF',
+          'surface-alt': '#FBF9F7',
+          'surface-warm': '#F8F5F1',
+          blush: '#F6EEEA',
+          ink: '#333333',
+          'ink-soft': '#6E6E6E',
         }
       },
       fontFamily: {
@@ -35,12 +42,16 @@ export default {
         'gold-gradient': 'linear-gradient(135deg, #B08D3C 0%, #C9A84C 50%, #8E6F2E 100%)',
         'dark-gradient': 'linear-gradient(180deg, #1F1D1D 0%, #2A2828 100%)',
         'hero-overlay': 'linear-gradient(180deg, rgba(31,29,29,0.3) 0%, rgba(31,29,29,0.8) 100%)',
+        'hero-light': 'linear-gradient(160deg, #FFFFFF 0%, #F8F5F1 60%, #F6EEEA 100%)',
       },
       boxShadow: {
         'gold': '0 0 0 1px #B08D3C',
         'gold-lg': '0 4px 24px rgba(176,141,60,0.2)',
         'pink': '0 4px 24px rgba(194,173,184,0.15)',
         'premium': '0 8px 48px rgba(0,0,0,0.4)',
+        'card': '0 12px 40px rgba(0,0,0,0.05)',
+        'card-hover': '0 20px 60px rgba(0,0,0,0.08)',
+        'nav': '0 2px 20px rgba(0,0,0,0.06)',
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out',

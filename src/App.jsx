@@ -40,7 +40,7 @@ function PublicLayout({ children }) {
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <main className="pt-[56px]">{children}</main>
       <Footer />
       <CartDrawer />
     </>

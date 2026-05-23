@@ -12,8 +12,8 @@
   }
 
   body {
-    background-color: #1F1D1D;
-    color: #FAF8F6;
+    background-color: #FFFFFF;
+    color: #333333;
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -35,28 +35,34 @@
   }
 
   .card-premium {
-    @apply bg-brand-black-soft border border-brand-gold/20 rounded-lg overflow-hidden;
-    box-shadow: 0 4px 24px rgba(176,141,60,0.08);
+    @apply bg-white border border-brand-gold/[0.15] rounded-[18px] overflow-hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.05);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .card-premium:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
   }
 
   .btn-gold {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-gold-gradient text-brand-black font-semibold text-sm tracking-wider uppercase transition-all duration-200 hover:shadow-gold-lg hover:scale-105 rounded;
+    @apply inline-flex items-center gap-2 px-7 py-3.5 bg-gold-gradient text-white font-semibold text-sm tracking-wide transition-all duration-200 hover:opacity-90 hover:shadow-gold-lg rounded-full;
   }
 
   .btn-outline-gold {
-    @apply inline-flex items-center gap-2 px-6 py-3 border border-brand-gold text-brand-gold font-semibold text-sm tracking-wider uppercase transition-all duration-200 hover:bg-brand-gold hover:text-brand-black rounded;
+    @apply inline-flex items-center gap-2 px-7 py-3.5 border border-brand-gold text-brand-gold font-semibold text-sm tracking-wide transition-all duration-200 hover:bg-brand-gold hover:text-white rounded-full;
   }
 
   .btn-pink {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-brand-pink text-brand-black font-semibold text-sm tracking-wider uppercase transition-all duration-200 hover:bg-brand-pink-light hover:shadow-pink rounded;
+    @apply inline-flex items-center gap-2 px-7 py-3.5 bg-brand-blush text-brand-ink font-semibold text-sm tracking-wide transition-all duration-200 hover:bg-brand-pink hover:shadow-pink rounded-full;
   }
 
   .pink-panel {
-    @apply bg-brand-pink/10 border border-brand-pink/20 rounded-lg;
+    @apply bg-brand-blush border border-brand-gold/20 rounded-xl;
   }
 
   .section-heading {
-    @apply font-serif text-4xl md:text-5xl text-brand-white font-light;
+    @apply font-serif text-4xl md:text-5xl text-brand-ink font-light;
   }
 
   .section-subheading {
@@ -68,9 +74,10 @@
   }
 
   .prose-brand {
-    @apply text-brand-white/80 leading-relaxed;
+    @apply text-brand-ink-soft leading-relaxed;
   }
 
+  /* Admin — dark theme preserved */
   .admin-sidebar-link {
     @apply flex items-center gap-3 px-4 py-3 text-sm text-brand-white/70 hover:text-brand-white hover:bg-brand-black-light rounded-lg transition-colors;
   }
@@ -114,7 +121,7 @@
 
   .scrollbar-thin {
     scrollbar-width: thin;
-    scrollbar-color: #B08D3C #1F1D1D;
+    scrollbar-color: #B08D3C #F8F5F1;
   }
 
   .scrollbar-thin::-webkit-scrollbar {
@@ -122,7 +129,7 @@
   }
 
   .scrollbar-thin::-webkit-scrollbar-track {
-    background: #1F1D1D;
+    background: #F8F5F1;
   }
 
   .scrollbar-thin::-webkit-scrollbar-thumb {

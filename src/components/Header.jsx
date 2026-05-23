@@ -42,8 +42,11 @@ export default function Header() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between min-h-[216px] py-2">
-          <Link to="/" className="flex-shrink-0">
+        <div className="grid grid-cols-[1fr_auto_1fr] lg:flex lg:items-center lg:justify-between min-h-[216px] py-2">
+          {/* Mobile spacer — centres logo by balancing the right-side icons */}
+          <div className="lg:hidden" />
+
+          <Link to="/" className="flex-shrink-0 flex justify-center lg:justify-start">
             <Logo size="sm" />
           </Link>
 
@@ -67,7 +70,7 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-end gap-3">
             {isAdmin && (
               <Link
                 to="/admin"

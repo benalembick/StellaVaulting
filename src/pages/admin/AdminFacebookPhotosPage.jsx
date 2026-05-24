@@ -8,19 +8,34 @@ import { supabase } from '../../lib/supabase'
 import toast from 'react-hot-toast'
 import { formatDistanceToNow, format, parseISO } from 'date-fns'
 
-const GRAPH_VERSION = 'v19.0'
+const GRAPH_VERSION = 'v25.0'
 const GRAPH_BASE = 'https://graph.facebook.com'
-// Uses /feed with photo attachment filtering — works with pages_read_engagement
-// (the /photos endpoint requires pages_read_user_content which needs extra app review)
+const PHOTO_FIELDS = 'id,images,name,created_time,link'
 const FEED_FIELDS = 'id,message,created_time,attachments{type,description,media,url,subattachments{type,media,url}}'
 const BATCH_SIZE = 50
 const MAX_PHOTOS = 500
+
+function preparePhotoPayload(photo, sourceId) {
+  const images = photo.images || []
+  const byWidth = [...images].sort((a, b) => (b.width || 0) - (a.width || 0))
+  const large = byWidth[0]
+  const thumb = byWidth.slice().reverse().find((img) => (img.width || 0) >= 200) || byWidth[byWidth.length - 1]
+  return {
+    external_id: photo.id,
+    source_id: sourceId,
+    image_url: large?.source || null,
+    thumbnail_url: thumb?.source || large?.source || null,
+    facebook_url: photo.link || `https://www.facebook.com/photo?fbid=${photo.id}`,
+    caption: photo.name || null,
+    created_time: photo.created_time ? new Date(photo.created_time).toISOString() : null,
+    metadata: { raw_images: images },
+  }
+}
 
 function extractPhotosFromPost(post, sourceId) {
   const results = []
   const attachments = post.attachments?.data || []
   let idx = 0
-
   for (const att of attachments) {
     if (att.type === 'photo' && att.media?.image) {
       results.push({
@@ -160,24 +175,30 @@ export default function AdminFacebookPhotosPage() {
     }).eq('id', source.id)
 
     try {
-      // Fetch page feed (paginated) — uses pages_read_engagement permission.
-      // The /photos endpoint requires pages_read_user_content which needs extra app review,
-      // so we use /feed and extract photo attachments instead.
-      const allPosts = []
-      let nextUrl = `${GRAPH_BASE}/${GRAPH_VERSION}/${source.page_id}/feed?fields=${FEED_FIELDS}&limit=100&access_token=${source.access_token}`
+      // Fetch albums then pull photos from each one.
+      // This approach works with a standard page token and avoids permission issues
+      // with the /photos?type=uploaded and /feed endpoints.
+      const SKIP_ALBUMS = new Set(['Profile pictures', 'Cover photos', 'Videos', 'Reels'])
 
-      while (nextUrl && allPosts.length < MAX_PHOTOS) {
-        const res = await fetch(nextUrl)
-        const json = await res.json()
-        if (json.error) throw new Error(json.error.message || 'Facebook API error')
-        allPosts.push(...(json.data || []))
-        nextUrl = json.paging?.next || null
-      }
+      const albumsRes = await fetch(
+        `${GRAPH_BASE}/${GRAPH_VERSION}/${source.page_id}/albums?fields=id,name&limit=50&access_token=${source.access_token}`
+      )
+      const albumsJson = await albumsRes.json()
+      if (albumsJson.error) throw new Error(albumsJson.error.message || 'Facebook API error fetching albums')
 
-      // Extract individual photo payloads from posts
+      const albums = (albumsJson.data || []).filter((a) => !SKIP_ALBUMS.has(a.name))
+      if (albums.length === 0) throw new Error('No photo albums found on this page')
+
       const allPhotos = []
-      for (const post of allPosts) {
-        allPhotos.push(...extractPhotosFromPost(post, source.id))
+      for (const album of albums) {
+        let nextUrl = `${GRAPH_BASE}/${GRAPH_VERSION}/${album.id}/photos?fields=${PHOTO_FIELDS}&limit=100&access_token=${source.access_token}`
+        while (nextUrl && allPhotos.length < MAX_PHOTOS) {
+          const res = await fetch(nextUrl)
+          const json = await res.json()
+          if (json.error) break // skip albums that fail silently
+          allPhotos.push(...(json.data || []).map((p) => preparePhotoPayload(p, source.id)))
+          nextUrl = json.paging?.next || null
+        }
         if (allPhotos.length >= MAX_PHOTOS) break
       }
 

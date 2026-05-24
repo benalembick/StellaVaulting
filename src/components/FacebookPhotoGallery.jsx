@@ -142,16 +142,29 @@ function Slideshow({ photos }) {
       {/* Images */}
       <div className="relative aspect-[16/9] bg-brand-black-soft">
         {photos.map((p, i) => (
-          <img
+          <div
             key={p.id}
-            src={p.image_url}
-            alt={p.caption || ''}
-            onLoad={() => setLoaded((l) => ({ ...l, [p.id]: true }))}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+            className={`absolute inset-0 transition-opacity duration-700 ${
               i === current ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
-            loading={i === 0 ? 'eager' : 'lazy'}
-          />
+          >
+            {/* Blurred background fills space around portrait images */}
+            <img
+              src={p.image_url}
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl brightness-50"
+              loading={i === 0 ? 'eager' : 'lazy'}
+            />
+            {/* Sharp foreground — fully contained, never cropped */}
+            <img
+              src={p.image_url}
+              alt={p.caption || ''}
+              onLoad={() => setLoaded((l) => ({ ...l, [p.id]: true }))}
+              className="absolute inset-0 w-full h-full object-contain"
+              loading={i === 0 ? 'eager' : 'lazy'}
+            />
+          </div>
         ))}
 
         {/* Caption gradient + text */}

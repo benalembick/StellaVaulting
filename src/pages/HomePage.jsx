@@ -69,51 +69,59 @@ export default function HomePage() {
     <div>
       {/* Hero — full-bleed image with text overlay */}
       {/* mt-[160px]: main has pt-[56px] but header is 216px tall, so push down the 160px gap */}
-      <section
-        className="relative w-full overflow-hidden bg-brand-black mt-[160px]"
-        style={{ height: 'calc(100vh - 216px)' }}
-      >
+      <section className="relative w-full overflow-hidden bg-brand-black mt-[60px] lg:mt-[160px] hero-section">
         {/* Image — hero-bg class handles responsive background-position */}
         <div aria-hidden="true" className="absolute inset-0 hero-bg" />
 
-        {/* Dark gradient overlay — stays fully opaque past the image left edge (~29%), then fades smoothly */}
+        {/* Dark gradient fade — responsive positions via hero-fade class in index.css */}
+        <div className="hero-fade absolute inset-0" />
+
+        {/* Mobile: top-to-bottom scrim behind the heading block, fades out just past the star line */}
         <div
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(to right, #1F1D1D 0%, #1F1D1D 34%, rgba(31,29,29,0.88) 44%, rgba(31,29,29,0.55) 54%, rgba(31,29,29,0.18) 64%, transparent 74%)' }}
+          className="lg:hidden absolute inset-x-0 top-0 pointer-events-none"
+          style={{ height: '50%', background: 'linear-gradient(to bottom, rgba(20,18,18,0.92) 0%, rgba(20,18,18,0.85) 40%, rgba(20,18,18,0.5) 72%, transparent 100%)' }}
         />
 
-        {/* Text content */}
-        <div className="relative z-10 flex flex-col justify-center h-full px-8 sm:px-12 md:px-16 lg:px-20 xl:px-28">
-          {/* Location tag */}
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-8 h-px bg-brand-gold" />
-            <span className="text-[10px] tracking-[0.3em] uppercase text-brand-gold font-medium">Western Australia</span>
+        {/* Text content — justify-between on mobile spreads to top/middle/bottom */}
+        <div className="relative z-10 flex flex-col justify-between lg:justify-center h-full px-8 sm:px-12 md:px-16 lg:px-20 xl:px-28 pt-6 pb-[14vh] lg:py-0">
+
+          {/* TOP: location tag + heading + star rule grouped together */}
+          <div className="lg:mb-8">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-px bg-brand-gold" />
+              <span className="text-[10px] tracking-[0.3em] uppercase text-brand-gold font-medium">Western Australia</span>
+            </div>
+            <h1 className="font-serif font-light leading-tight tracking-tight">
+              <span className="block text-white text-5xl md:text-6xl xl:text-[5.5rem]">Stella Vaulting</span>
+              <span className="block italic text-brand-gold text-5xl md:text-6xl xl:text-[5.5rem]">Academy</span>
+            </h1>
+            <div className="flex items-center gap-4 mt-5">
+              <span className="text-brand-gold text-base leading-none">★</span>
+              <div className="w-36 h-px bg-brand-gold/50" />
+            </div>
           </div>
 
-          <h1 className="font-serif font-light leading-tight tracking-tight">
-            <span className="block text-white text-5xl md:text-6xl xl:text-[5.5rem]">Stella Vaulting</span>
-            <span className="block italic text-brand-gold text-5xl md:text-6xl xl:text-[5.5rem]">Academy</span>
-          </h1>
-
-          {/* Star + rule */}
-          <div className="flex items-center gap-4 mt-5 mb-6">
-            <span className="text-brand-gold text-base leading-none">★</span>
-            <div className="w-36 h-px bg-brand-gold/50" />
-          </div>
-
-          <p className="text-white/75 text-base md:text-lg leading-relaxed max-w-sm md:max-w-md">
+          {/* MIDDLE: body text with subtle dark scrim on mobile for readability */}
+          <p className="text-white/80 text-base md:text-lg leading-relaxed max-w-sm md:max-w-md
+                        bg-black/40 rounded-lg px-3 py-2
+                        lg:bg-transparent lg:px-0 lg:py-0">
             Elite equestrian vaulting for athletes who dare to dream of the world stage.
             Training champions for the FEI World Championships.
           </p>
 
-          <div className="mt-10 flex flex-col sm:flex-row gap-4">
+          {/* BOTTOM: both buttons filled on mobile; second reverts to outline on desktop */}
+          <div className="flex flex-col sm:flex-row gap-4 lg:mt-10">
             <Link to="/about" className="btn-gold">
               Discover Our Story <ArrowRight size={16} />
             </Link>
-            <Link to="/fundraising" className="btn-outline-gold">
+            <Link to="/fundraising" className="btn-gold lg:hidden">
+              Support the Team <Heart size={16} />
+            </Link>
+            <Link to="/fundraising" className="btn-outline-gold hidden lg:inline-flex">
               Support the Team <Heart size={16} />
             </Link>
           </div>
+
         </div>
       </section>
 

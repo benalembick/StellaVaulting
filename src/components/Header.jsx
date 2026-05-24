@@ -46,7 +46,7 @@ export default function Header() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-[1fr_auto_1fr] lg:flex lg:items-center lg:justify-between min-h-[216px] py-2">
+        <div className="grid grid-cols-[1fr_auto_1fr] lg:flex lg:items-center lg:justify-between min-h-[116px] lg:min-h-[216px] py-2">
           {/* Mobile spacer — centres logo by balancing the right-side icons */}
           <div className="lg:hidden" />
 

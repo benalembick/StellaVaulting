@@ -138,16 +138,67 @@
   }
 }
 
-/* Hero image — responsive background-position */
+/* Hero section height — tracks header height at each breakpoint */
+.hero-section {
+  height: calc(100vh - 116px); /* mobile: 100px logo + 16px padding */
+}
+@media (min-width: 1024px) {
+  .hero-section {
+    height: calc(100vh - 216px); /* desktop: 200px logo + 16px padding */
+  }
+}
+
+/* Hero gradient fade — responsive stop positions to match image left edge at each breakpoint */
+.hero-fade {
+  display: none; /* tiny mobile: full image, no fade */
+}
+@media (min-width: 640px) {
+  /* Portrait image right-aligned; image left edge is ~50-65% from left depending on viewport */
+  .hero-fade {
+    display: block;
+    background: linear-gradient(to right,
+      #1F1D1D 0%,
+      #1F1D1D 47%,
+      rgba(31,29,29,0.88) 60%,
+      rgba(31,29,29,0.55) 72%,
+      rgba(31,29,29,0.18) 82%,
+      transparent 92%
+    );
+  }
+}
+@media (min-width: 1024px) {
+  /* Landscape image right-aligned; image left edge is ~29% from left */
+  .hero-fade {
+    background: linear-gradient(to right,
+      #1F1D1D 0%,
+      #1F1D1D 34%,
+      rgba(31,29,29,0.88) 44%,
+      rgba(31,29,29,0.55) 54%,
+      rgba(31,29,29,0.18) 64%,
+      transparent 74%
+    );
+  }
+}
+
+/* Hero image — portrait crop on mobile, landscape on desktop */
 .hero-bg {
-  background-image: url('/images/imelda-jumping5.png');
-  background-size: auto 100%;
+  background-image: url('/images/imelda-jumping6.png');
   background-repeat: no-repeat;
-  background-position: 62% center; /* mobile: centre over the horse/rider action */
+  background-size: cover;
+  background-position: center top;
+}
+@media (min-width: 640px) {
+  /* wider screens: right-align portrait image at natural scale, no stretching */
+  .hero-bg {
+    background-size: auto 100%;
+    background-position: right top;
+  }
 }
 @media (min-width: 1024px) {
   .hero-bg {
-    background-position: right center; /* desktop: flush right, dark left for text */
+    background-image: url('/images/imelda-jumping5.png');
+    background-size: auto 100%;
+    background-position: right center;
   }
 }
 

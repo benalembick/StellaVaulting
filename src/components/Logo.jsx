@@ -6,8 +6,7 @@ export default function Logo({ size = 'md', className = '' }) {
       <img
         src={logoImg}
         alt="Stella Vaulting Academy"
-        style={{ height: 200 }}
-        className="object-contain"
+        className="object-contain h-[100px] lg:h-[200px]"
       />
     </div>
   )

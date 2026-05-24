@@ -5,19 +5,62 @@ import { supabase } from '../lib/supabase'
 import CountdownTimer from '../components/CountdownTimer'
 import SectionHeading from '../components/SectionHeading'
 import EditableSection from '../components/EditableSection'
+import FacebookPhotoGallery from '../components/FacebookPhotoGallery'
+import PageRenderer from '../components/PageRenderer'
 
 export default function HomePage() {
   const [pinnedPosts, setPinnedPosts] = useState([])
   const [nextEvent, setNextEvent] = useState(null)
+  const [fbGallery, setFbGallery] = useState(null) // null = loading, false = hidden, object = show
+  const [homeSections, setHomeSections] = useState([])
 
   useEffect(() => {
     async function load() {
-      const [postsRes, eventsRes] = await Promise.all([
+      const [postsRes, eventsRes, settingsRes, homePageRes] = await Promise.all([
         supabase.from('posts').select('*').eq('published', true).eq('pinned', true).order('pin_order'),
         supabase.from('events').select('*').eq('published', true).eq('show_countdown', true).gte('event_date', new Date().toISOString()).order('event_date').limit(1),
+        // site_settings is publicly readable — the access token never lives here
+        supabase.from('site_settings').select('key, value').in('key', [
+          'facebook_gallery_enabled',
+          'facebook_gallery_title',
+          'facebook_gallery_intro',
+          'facebook_gallery_source_id',
+        ]),
+        supabase.from('pages').select('id').eq('slug', 'home').single(),
       ])
       setPinnedPosts(postsRes.data || [])
       setNextEvent(eventsRes.data?.[0] || null)
+
+      if (homePageRes.data) {
+        const { data: sectionsData } = await supabase
+          .from('page_sections')
+          .select('*')
+          .eq('page_id', homePageRes.data.id)
+          .eq('published', true)
+          .order('order_index')
+        setHomeSections(sectionsData || [])
+      }
+
+      const settings = Object.fromEntries((settingsRes.data || []).map((r) => [r.key, r.value]))
+      const enabled = settings.facebook_gallery_enabled
+      const sourceId = settings.facebook_gallery_source_id
+      if (!enabled || !sourceId) { setFbGallery(false); return }
+
+      // Only show if there are enabled photos in this source
+      const { count } = await supabase
+        .from('gallery_photos')
+        .select('id', { count: 'exact', head: true })
+        .eq('source_id', sourceId)
+        .eq('enabled', true)
+      setFbGallery(
+        count > 0
+          ? {
+              id: sourceId,
+              default_title: settings.facebook_gallery_title || 'Latest From Facebook',
+              default_intro: settings.facebook_gallery_intro || null,
+            }
+          : false
+      )
     }
     load()
   }, [])
@@ -161,6 +204,34 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Admin-added sections */}
+      {homeSections.length > 0 && (
+        <PageRenderer sections={homeSections} pageSlug="home" />
+      )}
+
+      {/* Latest From Facebook */}
+      {fbGallery && (
+        <EditableSection adminPath="/admin/facebook-photos" label="Facebook Photos">
+          <section className="py-28">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <SectionHeading
+                label="Follow Us"
+                title={fbGallery.default_title || 'Latest From Facebook'}
+                subtitle={fbGallery.default_intro || undefined}
+                center
+                className="mb-12"
+              />
+              <FacebookPhotoGallery
+                sourceId={fbGallery.id}
+                displayMode="slideshow"
+                maxImages={16}
+                sortMode="featured_first"
+              />
+            </div>
+          </section>
+        </EditableSection>
+      )}
 
       {/* CTA Strip */}
       <EditableSection adminPath="/admin/sponsorship" label="Sponsorship">

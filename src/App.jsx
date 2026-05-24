@@ -37,6 +37,7 @@ import AdminCommunityGalleryPage from './pages/admin/AdminCommunityGalleryPage'
 import AdminOrdersPage from './pages/admin/AdminOrdersPage'
 import AdminSponsorshipPage from './pages/admin/AdminSponsorshipPage'
 import AdminPagesPage from './pages/admin/AdminPagesPage'
+import AdminFacebookPhotosPage from './pages/admin/AdminFacebookPhotosPage'
 
 function PublicLayout({ children }) {
   const { isAdmin } = useAuth()
@@ -93,6 +94,7 @@ export default function App() {
             <Route path="/admin/community-gallery" element={<AdminRoute><AdminCommunityGalleryPage /></AdminRoute>} />
             <Route path="/admin/orders" element={<AdminRoute><AdminOrdersPage /></AdminRoute>} />
             <Route path="/admin/sponsorship" element={<AdminRoute><AdminSponsorshipPage /></AdminRoute>} />
+            <Route path="/admin/facebook-photos" element={<AdminRoute><AdminFacebookPhotosPage /></AdminRoute>} />
           </Routes>
         </CartProvider>
       </AuthProvider>

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import CountdownTimer from './CountdownTimer'
 import EditableSection from './EditableSection'
+import FacebookPhotoGallery from './FacebookPhotoGallery'
 
 export default function PageRenderer({ sections = [], pageSlug = '' }) {
   const baseAdminPath = pageSlug ? `/admin/pages?slug=${pageSlug}` : '/admin/pages'
@@ -147,6 +148,26 @@ function SectionBlock({ section }) {
               </div>
             ))}
           </div>
+        </section>
+      )
+    }
+
+    case 'facebook_gallery': {
+      if (data.enabled === false) return null
+      return (
+        <section className="py-8 max-w-6xl mx-auto px-6">
+          {(data.title || data.intro) && (
+            <div className="mb-10 text-center">
+              {data.title && <h2 className="font-serif text-3xl text-brand-ink">{data.title}</h2>}
+              {data.intro && <p className="mt-3 text-brand-ink-soft">{data.intro}</p>}
+            </div>
+          )}
+          <FacebookPhotoGallery
+            sourceId={data.gallery_source_id || null}
+            displayMode={data.display_mode || 'slideshow'}
+            maxImages={parseInt(data.max_images) || 12}
+            sortMode={data.sort_mode || 'featured_first'}
+          />
         </section>
       )
     }

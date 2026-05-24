@@ -5,6 +5,7 @@ import { supabase } from '../../lib/supabase'
 import ImageUpload from '../../components/ImageUpload'
 import toast from 'react-hot-toast'
 
+
 const SECTION_TYPES = [
   { value: 'hero', label: 'Hero Banner' },
   { value: 'text_block', label: 'Text Block' },
@@ -12,6 +13,7 @@ const SECTION_TYPES = [
   { value: 'call_to_action', label: 'Call to Action' },
   { value: 'features', label: 'Features / Values Grid' },
   { value: 'event_countdown', label: 'Event Countdown' },
+  { value: 'facebook_gallery', label: 'Facebook Photo Gallery' },
 ]
 
 const EMPTY_PAGE = { slug: '', title: '', meta_description: '', published: false }
@@ -322,11 +324,21 @@ export default function AdminPagesPage() {
 
 function SectionContentEditor({ type, content, onChange, onSave, onCancel, saving }) {
   const fields = getSectionFields(type)
+  const [gallerySources, setGallerySources] = useState([])
+
+  useEffect(() => {
+    if (fields.some((f) => f.type === 'gallery_source')) {
+      supabase
+        .from('gallery_sources')
+        .select('id, default_title, page_id, enabled')
+        .then(({ data }) => setGallerySources(data || []))
+    }
+  }, [type])
 
   return (
     <div className="mt-4 pt-4 border-t border-brand-gold/10">
       <div className="grid md:grid-cols-2 gap-3">
-        {fields.map(({ key, label, multiline, type: fType }) => (
+        {fields.map(({ key, label, multiline, type: fType, options }) => (
           <div key={key} className={multiline ? 'md:col-span-2' : ''}>
             <label className="admin-label">{label}</label>
             {multiline ? (
@@ -344,6 +356,30 @@ function SectionContentEditor({ type, content, onChange, onSave, onCancel, savin
                 <input type="checkbox" checked={!!content[key]} onChange={(e) => onChange({ ...content, [key]: e.target.checked })} className="w-4 h-4 accent-brand-gold" />
                 <span className="text-xs text-brand-ink/50">Enable</span>
               </div>
+            ) : fType === 'select' ? (
+              <select
+                className="admin-select"
+                value={content[key] || ''}
+                onChange={(e) => onChange({ ...content, [key]: e.target.value })}
+              >
+                {(options || []).map((opt) => (
+                  <option key={opt.value} value={opt.value}>{opt.label}</option>
+                ))}
+              </select>
+            ) : fType === 'gallery_source' ? (
+              <select
+                className="admin-select"
+                value={content[key] || ''}
+                onChange={(e) => onChange({ ...content, [key]: e.target.value })}
+              >
+                <option value="">— Use primary gallery source —</option>
+                {gallerySources.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.default_title || s.page_id || s.id}
+                    {s.enabled ? '' : ' (disabled)'}
+                  </option>
+                ))}
+              </select>
             ) : (
               <input className="admin-input" type={fType || 'text'} value={content[key] || ''} onChange={(e) => onChange({ ...content, [key]: e.target.value })} />
             )}
@@ -415,6 +451,33 @@ function getSectionFields(type) {
         { key: 'event_name', label: 'Event Name' },
         { key: 'event_date', label: 'Event Date', type: 'datetime-local' },
         { key: 'fundraising_target', label: 'Fundraising Target ($)', type: 'number' },
+      ]
+    case 'facebook_gallery':
+      return [
+        { key: 'gallery_source_id', label: 'Gallery Source', type: 'gallery_source' },
+        { key: 'title', label: 'Title (override)' },
+        { key: 'intro', label: 'Intro Text (override)', multiline: true },
+        {
+          key: 'display_mode',
+          label: 'Display Mode',
+          type: 'select',
+          options: [
+            { value: 'slideshow', label: 'Slideshow / Carousel' },
+            { value: 'grid', label: 'Photo Grid' },
+          ],
+        },
+        { key: 'max_images', label: 'Max Images', type: 'number' },
+        {
+          key: 'sort_mode',
+          label: 'Sort Order',
+          type: 'select',
+          options: [
+            { value: 'featured_first', label: 'Featured First, then by Order' },
+            { value: 'newest', label: 'Newest First' },
+            { value: 'manual', label: 'Manual Order Only' },
+          ],
+        },
+        { key: 'enabled', label: 'Show this section', type: 'checkbox' },
       ]
     default:
       return []

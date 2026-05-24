@@ -138,6 +138,12 @@
   }
 }
 
+/* Facebook gallery slideshow progress bar */
+@keyframes slideProgress {
+  from { width: 0% }
+  to   { width: 100% }
+}
+
 /* Star/sparkle motif */
 .star-motif::before {
   content: '✦';

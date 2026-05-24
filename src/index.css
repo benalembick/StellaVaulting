@@ -138,6 +138,19 @@
   }
 }
 
+/* Hero image — responsive background-position */
+.hero-bg {
+  background-image: url('/images/imelda-jumping5.png');
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: 62% center; /* mobile: centre over the horse/rider action */
+}
+@media (min-width: 1024px) {
+  .hero-bg {
+    background-position: right center; /* desktop: flush right, dark left for text */
+  }
+}
+
 /* Facebook gallery slideshow progress bar */
 @keyframes slideProgress {
   from { width: 0% }

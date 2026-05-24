@@ -73,17 +73,8 @@ export default function HomePage() {
         className="relative w-full overflow-hidden bg-brand-black mt-[160px]"
         style={{ height: 'calc(100vh - 216px)' }}
       >
-        {/* Image — background-size: auto 100% preserves aspect ratio at every screen width */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0"
-          style={{
-            backgroundImage: 'url(/images/imelda-jumping5.png)',
-            backgroundSize: 'auto 100%',
-            backgroundPosition: 'right center',
-            backgroundRepeat: 'no-repeat',
-          }}
-        />
+        {/* Image — hero-bg class handles responsive background-position */}
+        <div aria-hidden="true" className="absolute inset-0 hero-bg" />
 
         {/* Dark gradient overlay — stays fully opaque past the image left edge (~29%), then fades smoothly */}
         <div

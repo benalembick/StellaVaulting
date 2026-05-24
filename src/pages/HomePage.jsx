@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Heart } from 'lucide-react'
+import { ArrowRight, Heart, Trophy, Award, Globe, Sparkles, ChevronRight } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import CountdownTimer from '../components/CountdownTimer'
 import SectionHeading from '../components/SectionHeading'
@@ -67,27 +67,55 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* Hero */}
-      <section className="relative min-h-screen flex items-center justify-center text-center overflow-hidden bg-hero-light">
-        {/* Decorative elements */}
-        <div className="absolute inset-0 opacity-[0.06]">
-          <div className="absolute top-20 left-10 text-9xl text-brand-gold font-serif">✦</div>
-          <div className="absolute bottom-40 right-20 text-7xl text-brand-gold font-serif">✦</div>
-          <div className="absolute top-1/2 left-1/4 text-5xl text-brand-gold font-serif">✦</div>
-        </div>
-        <div className="absolute inset-0 border border-brand-gold/[0.08] m-8 rounded-sm pointer-events-none" />
+      {/* Hero — full-bleed image with text overlay */}
+      {/* mt-[160px]: main has pt-[56px] but header is 216px tall, so push down the 160px gap */}
+      <section
+        className="relative w-full overflow-hidden bg-brand-black mt-[160px]"
+        style={{ height: 'calc(100vh - 216px)' }}
+      >
+        {/* Image — background-size: auto 100% preserves aspect ratio at every screen width */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            backgroundImage: 'url(/images/imelda-jumping5.png)',
+            backgroundSize: 'auto 100%',
+            backgroundPosition: 'right center',
+            backgroundRepeat: 'no-repeat',
+          }}
+        />
 
-        <div className="relative z-10 max-w-4xl mx-auto px-6 py-40 animate-fade-in">
-          <p className="label-gold mb-6">✦ Western Australia ✦</p>
-          <h1 className="font-serif font-light text-6xl md:text-8xl text-brand-ink leading-tight tracking-tight">
-            Stella Vaulting
-            <span className="block text-gradient-gold italic">Academy</span>
+        {/* Dark gradient overlay — stays fully opaque past the image left edge (~29%), then fades smoothly */}
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(to right, #1F1D1D 0%, #1F1D1D 34%, rgba(31,29,29,0.88) 44%, rgba(31,29,29,0.55) 54%, rgba(31,29,29,0.18) 64%, transparent 74%)' }}
+        />
+
+        {/* Text content */}
+        <div className="relative z-10 flex flex-col justify-center h-full px-8 sm:px-12 md:px-16 lg:px-20 xl:px-28">
+          {/* Location tag */}
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-8 h-px bg-brand-gold" />
+            <span className="text-[10px] tracking-[0.3em] uppercase text-brand-gold font-medium">Western Australia</span>
+          </div>
+
+          <h1 className="font-serif font-light leading-tight tracking-tight">
+            <span className="block text-white text-5xl md:text-6xl xl:text-[5.5rem]">Stella Vaulting</span>
+            <span className="block italic text-brand-gold text-5xl md:text-6xl xl:text-[5.5rem]">Academy</span>
           </h1>
-          <p className="mt-8 text-lg md:text-xl text-brand-ink-soft font-light max-w-2xl mx-auto leading-relaxed">
+
+          {/* Star + rule */}
+          <div className="flex items-center gap-4 mt-5 mb-6">
+            <span className="text-brand-gold text-base leading-none">★</span>
+            <div className="w-36 h-px bg-brand-gold/50" />
+          </div>
+
+          <p className="text-white/75 text-base md:text-lg leading-relaxed max-w-sm md:max-w-md">
             Elite equestrian vaulting for athletes who dare to dream of the world stage.
             Training champions for the FEI World Championships.
           </p>
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+
+          <div className="mt-10 flex flex-col sm:flex-row gap-4">
             <Link to="/about" className="btn-gold">
               Discover Our Story <ArrowRight size={16} />
             </Link>
@@ -96,13 +124,29 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-brand-ink/30">
-          <div className="w-px h-12 bg-gradient-to-b from-transparent to-brand-gold/50" />
-          <span className="text-[10px] tracking-[0.3em] uppercase">Scroll</span>
-        </div>
       </section>
+
+      {/* Stats strip */}
+      <div className="bg-white border-b border-brand-gold/[0.15]">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-4 divide-y divide-brand-gold/[0.15] lg:divide-y-0 lg:divide-x">
+            {[
+              { Icon: Trophy,   label: 'World Class\nTraining' },
+              { Icon: Award,    label: 'Athlete Focused\nDevelopment' },
+              { Icon: Globe,    label: 'Competing on the\nWorld Stage' },
+              { Icon: Sparkles, label: 'Discipline. Strength.\nExcellence.' },
+            ].map(({ Icon, label }) => (
+              <div key={label} className="flex items-center gap-4 px-6 lg:px-10 py-5 lg:py-7">
+                <Icon size={26} className="text-brand-gold flex-shrink-0" strokeWidth={1.4} />
+                <span className="flex-1 text-[10px] tracking-[0.15em] uppercase font-semibold text-brand-ink leading-tight whitespace-pre-line">
+                  {label}
+                </span>
+                <ChevronRight size={16} className="text-brand-gold/50 lg:hidden flex-shrink-0" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* Countdown + Fundraising CTA */}
       <EditableSection adminPath="/admin/events" label="Events">

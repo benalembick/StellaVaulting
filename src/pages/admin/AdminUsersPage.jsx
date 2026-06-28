@@ -4,6 +4,18 @@ import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../context/AuthContext'
 import toast from 'react-hot-toast'
 
+async function describeFunctionError(err) {
+  if (err?.context?.json) {
+    try {
+      const body = await err.context.json()
+      if (body?.error) return body.error
+    } catch {
+      // response body wasn't JSON; fall through to the generic message
+    }
+  }
+  return err?.message || 'Something went wrong.'
+}
+
 export default function AdminUsersPage() {
   const [admins, setAdmins] = useState([])
   const [loading, setLoading] = useState(true)
@@ -19,7 +31,7 @@ export default function AdminUsersPage() {
       if (error) throw error
       setAdmins(data.admins || [])
     } catch (err) {
-      toast.error(err.message || 'Could not load admins.')
+      toast.error(await describeFunctionError(err))
     } finally {
       setLoading(false)
     }
@@ -43,7 +55,7 @@ export default function AdminUsersPage() {
       setInviteEmail('')
       loadAdmins()
     } catch (err) {
-      toast.error(err.message || 'Could not send invite.')
+      toast.error(await describeFunctionError(err))
     } finally {
       setInviting(false)
     }
@@ -62,7 +74,7 @@ export default function AdminUsersPage() {
       toast.success('Admin removed.')
       setAdmins((prev) => prev.filter((a) => a.id !== admin.id))
     } catch (err) {
-      toast.error(err.message || 'Could not remove admin.')
+      toast.error(await describeFunctionError(err))
     } finally {
       setRemovingId(null)
     }

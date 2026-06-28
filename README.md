@@ -101,6 +101,19 @@ VALUES ('paste-user-uuid-here', 'admin@stellavaulting.com.au');
 
 4. Sign in at `/admin/login` with those credentials
 
+### Manage Admin Users (Invite/Remove)
+
+Additional admins can be invited and removed from **Admin → Admin Users** in the dashboard. This requires deploying the `admin-users` Edge Function, which uses the service role key server-side (never exposed to the browser):
+
+```bash
+supabase login
+supabase link --project-ref your-project-ref
+supabase secrets set SITE_URL=https://your-production-url.com
+supabase functions deploy admin-users
+```
+
+`SUPABASE_URL`, `SUPABASE_ANON_KEY`, and `SUPABASE_SERVICE_ROLE_KEY` are injected automatically by Supabase for Edge Functions — you only need to set `SITE_URL` so invite emails link to the right place.
+
 ---
 
 ## Stripe Setup

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { NavLink, Link, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard, FileText, Users, Calendar, Heart, Image,
-  Camera, ShoppingBag, Award, LogOut, Menu, X, ChevronRight, Share2
+  Camera, ShoppingBag, Award, LogOut, Menu, X, ChevronRight, Share2, UserCog
 } from 'lucide-react'
 import Logo from '../Logo'
 import { useAuth } from '../../context/AuthContext'
@@ -20,6 +20,7 @@ const navItems = [
   { to: '/admin/orders', label: 'Orders', icon: ShoppingBag },
   { to: '/admin/sponsorship', label: 'Sponsorship', icon: Award },
   { to: '/admin/facebook-photos', label: 'Facebook Photos', icon: Share2 },
+  { to: '/admin/users', label: 'Admin Users', icon: UserCog },
 ]
 
 export default function AdminLayout({ children }) {

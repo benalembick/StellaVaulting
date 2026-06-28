@@ -26,6 +26,7 @@ import CheckoutSuccessPage from './pages/CheckoutSuccessPage'
 
 // Admin
 import AdminLoginPage from './pages/admin/AdminLoginPage'
+import AdminResetPasswordPage from './pages/admin/AdminResetPasswordPage'
 import AdminLayout from './components/admin/AdminLayout'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminTeamPage from './pages/admin/AdminTeamPage'
@@ -38,6 +39,7 @@ import AdminOrdersPage from './pages/admin/AdminOrdersPage'
 import AdminSponsorshipPage from './pages/admin/AdminSponsorshipPage'
 import AdminPagesPage from './pages/admin/AdminPagesPage'
 import AdminFacebookPhotosPage from './pages/admin/AdminFacebookPhotosPage'
+import AdminUsersPage from './pages/admin/AdminUsersPage'
 
 function PublicLayout({ children }) {
   const { isAdmin } = useAuth()
@@ -82,6 +84,7 @@ export default function App() {
 
             {/* Admin auth */}
             <Route path="/admin/login" element={<AdminLoginPage />} />
+            <Route path="/admin/reset-password" element={<AdminResetPasswordPage />} />
 
             {/* Admin CMS */}
             <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
@@ -95,6 +98,7 @@ export default function App() {
             <Route path="/admin/orders" element={<AdminRoute><AdminOrdersPage /></AdminRoute>} />
             <Route path="/admin/sponsorship" element={<AdminRoute><AdminSponsorshipPage /></AdminRoute>} />
             <Route path="/admin/facebook-photos" element={<AdminRoute><AdminFacebookPhotosPage /></AdminRoute>} />
+            <Route path="/admin/users" element={<AdminRoute><AdminUsersPage /></AdminRoute>} />
           </Routes>
         </CartProvider>
       </AuthProvider>
